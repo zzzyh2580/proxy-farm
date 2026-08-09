@@ -1,0 +1,17 @@
+Deno.serve(async (req) => {
+  const url = new URL(req.url);
+  const target = url.searchParams.get('url');
+  if (!target) return new Response('no url', { status: 400 });
+  const headers = {};
+  for (const [k, v] of req.headers) {
+    if (['user-agent','accept','accept-language','origin','referer','authorization','content-type','cookie'].includes(k.toLowerCase())) headers[k] = v;
+  }
+  try {
+    const resp = await fetch(target, { method: req.method, headers, body: req.body, redirect: 'follow' });
+    const out = new Response(resp.body, { status: resp.status, statusText: resp.statusText, headers: resp.headers });
+    out.headers.set('Access-Control-Allow-Origin', '*');
+    return out;
+  } catch (e) {
+    return new Response('proxy error: ' + String(e), { status: 502 });
+  }
+});
