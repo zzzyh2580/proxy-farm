@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-import urllib.request, json, time, sys, ssl
+import urllib.request, json, time, sys, ssl, os
+
+shard = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+total = int(sys.argv[2]) if len(sys.argv) > 2 else 6
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 out = []
@@ -52,13 +55,18 @@ def head_get(url, timeout=10):
         return "EXC", "", ""
 
 
-start_page = 1
+# 本 shard 的进度文件
+res_file = "results_%d.jsonl" % shard
+prog_file = "progress_%d.txt" % shard
+det_file = "details_%d.jsonl" % shard
+
+start_page = shard
 try:
-    with open("progress.txt") as f:
-        start_page = int(f.read().strip()) + 1
+    with open(prog_file) as f:
+        start_page = int(f.read().strip()) + total
 except Exception:
     pass
-log("start page: %d" % start_page)
+log("shard%d start page: %d" % (shard, start_page))
 
 st, body = req(
     "POST", "/api/user/login", {"email": "3124323585@qq.com", "password": "9876543210."}
@@ -71,15 +79,18 @@ H = {"Authorization": "Bearer " + tok}
 time.sleep(1)
 
 try:
-    with open("results.jsonl") as f:
+    with open(res_file) as f:
         seen = set(json.loads(l)["id"] for l in f if l.strip())
 except Exception:
     seen = set()
 
 new_items = []
 end_page = start_page
-for pg in range(start_page, start_page + 3):
+# 本 shard 抓 3 个 page(间隔 total)
+for k in range(3):
+    pg = start_page + k * total
     st, b = req("GET", "/api/lois?page=%d" % pg, headers=H)
+    log("shard%d page %d: %s" % (shard, pg, st))
     if st != 200:
         break
     try:
@@ -87,7 +98,7 @@ for pg in range(start_page, start_page + 3):
     except Exception:
         break
     if not items:
-        log("到底")
+        log("shard%d page %d 空" % (shard, pg))
         break
     for it in items:
         if it.get("id") not in seen:
@@ -96,43 +107,37 @@ for pg in range(start_page, start_page + 3):
     end_page = pg
     time.sleep(0.8)
 
-# 详情 + 封面图测试 + 视频扩展名猜测
+# 详情 + 封面 + 视频扩展名探测 (前 4 个新条目)
 probes = []
-probed = set()
-for it in new_items[:6]:
+for it in new_items[:4]:
     lid = it.get("id")
     st, b = req("GET", "/api/lois/%s" % lid, headers=H)
     probes.append({"id": lid, "detail_status": st, "detail": b[:800]})
-    log("detail %s: %s" % (lid, st))
+    log("shard%d detail %s: %s" % (shard, lid, st))
     time.sleep(0.5)
     cover = it.get("cover")
     if cover and "images.moegoat.com/" in cover:
-        # 提取 hash 的文件名(去扩展名)
         fn = cover.split("images.moegoat.com/")[-1]
         base = fn.rsplit(".", 1)[0] if "." in fn else fn
-        for ext in [".mp4", ".m3u8", ".ts", ".mkv", ".webm", ".mov", ".zip", ".html"]:
+        for ext in [".mp4", ".m3u8", ".ts", ".zip"]:
             url = "https://images.moegoat.com/" + base + ext
-            if url in probed:
-                continue
-            probed.add(url)
             c1, ct1, cl1 = head_get(url)
             probes.append({"id": lid, "url": url, "status": c1, "ct": ct1, "len": cl1})
-            log("probe %s%s: %s %s %s" % (base[-12:], ext, c1, ct1, cl1))
+            log("shard%d probe %s%s: %s %s %s" % (shard, base[-10:], ext, c1, ct1, cl1))
             time.sleep(0.3)
-    # cover 图本体测试
     c1, ct1, cl1 = head_get(cover)
     probes.append({"id": lid, "url": cover, "status": c1, "ct": ct1, "len": cl1})
-    log("cover %s: %s %s %s" % (lid, c1, ct1, cl1))
+    log("shard%d cover %s: %s %s %s" % (shard, lid, c1, ct1, cl1))
     time.sleep(0.3)
 
-with open("results.jsonl", "a", encoding="utf-8") as f:
+with open(res_file, "a", encoding="utf-8") as f:
     for it in new_items:
         f.write(json.dumps(it, ensure_ascii=False) + "\n")
-with open("details.jsonl", "a", encoding="utf-8") as f:
+with open(det_file, "a", encoding="utf-8") as f:
     for d in probes:
         f.write(json.dumps(d, ensure_ascii=False) + "\n")
-with open("progress.txt", "w") as f:
+with open(prog_file, "w") as f:
     f.write(str(end_page))
 with open("latest.txt", "w") as f:
     f.write("\n".join(out))
-log("DONE 累计 %d" % len(seen))
+log("shard%d DONE 累计 %d" % (shard, len(seen)))

@@ -13,14 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4, 5, 6]
     steps:
       - uses: actions/checkout@v4
       - name: crawl
-        run: python3 crawler.py || true
+        run: python3 crawler.py ${{ matrix.shard }} 6 || true
       - name: push
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add results.jsonl details.jsonl progress.txt latest.txt
-          git diff --cached --quiet || git commit -m update
+          git add results_*.jsonl details_*.jsonl progress_*.txt latest.txt
+          git diff --cached --quiet || git commit -m "shard ${{ matrix.shard }}"
+          git pull --rebase origin main || true
           git push origin main || true
