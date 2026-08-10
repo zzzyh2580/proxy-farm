@@ -1,13 +1,13 @@
-shard6 start: 14
+shard6 start: 22
 login: 200
-page 14: 200
-detail 6152: 200
-detail 6151: 200
-detail 6154: 200
-detail 6149: 200
-detail 6153: 200
-detail 6117: 200
-detail 6147: 200
-detail 6148: 200
-detail 6150: 200
-detail 6145: 200
+page 22: 200
+detail 5976: 200
+detail 5975: 403
+detail 5972: 403
+detail 5973: 403
+detail 5974: 200
+detail 5971: 200
+detail 5968: 403
+detail 5969: 403
+detail 5970: 403
+detail 5967: 403
