@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
-import requests, json, time, os, sys
+import urllib.request, urllib.parse, json, time, sys, ssl
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
-HDR = {
-    "User-Agent": UA,
-    "Origin": "https://loiship.com",
-    "Referer": "https://loiship.com/",
-}
 out = []
 
 
@@ -15,19 +10,40 @@ def log(s):
     out.append(str(s))
 
 
+def req(method, path, data=None, headers=None):
+    h = {
+        "User-Agent": UA,
+        "Origin": "https://loiship.com",
+        "Referer": "https://loiship.com/",
+    }
+    if headers:
+        h.update(headers)
+    body = None
+    if data is not None:
+        body = json.dumps(data).encode()
+        h["Content-Type"] = "application/json"
+    url = "https://api.moegoat.com" + path
+    r = urllib.request.Request(url, data=body, headers=h, method=method)
+    ctx = ssl.create_default_context()
+    try:
+        resp = urllib.request.urlopen(r, timeout=15, context=ctx)
+        return resp.status, resp.read().decode("utf-8", "replace")
+    except Exception as e:
+        return "EXC", type(e).__name__ + " " + str(e)[:100]
+
+
 try:
-    r = requests.post(
-        "https://api.moegoat.com/api/user/login",
-        headers=HDR,
-        json={"email": "3124323585@qq.com", "password": "9876543210."},
-        timeout=15,
+    st, body = req(
+        "POST",
+        "/api/user/login",
+        {"email": "3124323585@qq.com", "password": "9876543210."},
     )
-    log("login: %s %s" % (r.status_code, r.text[:150]))
+    log("login: %s %s" % (st, body[:150]))
     tok = ""
-    if r.status_code == 200:
-        tok = (r.json().get("access_token") or "").replace("bearer ", "")
-    log("token: " + tok[:30])
-    H = dict(HDR, Authorization="Bearer " + tok)
+    if st == 200:
+        tok = (json.loads(body).get("access_token") or "").replace("bearer ", "")
+    log("token: " + tok[:25])
+    H = {"Authorization": "Bearer " + tok}
     time.sleep(1)
     for ep in [
         "download_v6",
@@ -36,27 +52,16 @@ try:
         "online_play_v2",
         "online_play_v1",
     ]:
-        try:
-            r = requests.get(
-                "https://api.moegoat.com/api/user/loi/%s/6422" % ep,
-                headers=H,
-                timeout=15,
-            )
-            log("%s/6422: %s %s" % (ep, r.status_code, r.text[:200]))
-        except Exception as e:
-            log("%s: EXC %s" % (ep, type(e).__name__))
+        st, b = req("GET", "/api/user/loi/%s/6422" % ep, headers=H)
+        log("%s/6422: %s %s" % (ep, st, b[:180]))
         time.sleep(0.8)
     for pg in [1, 2]:
-        try:
-            r = requests.get(
-                "https://api.moegoat.com/api/lois?page=%d" % pg, headers=H, timeout=15
-            )
-            log("lois p%d: %s %s" % (pg, r.status_code, r.text[:120]))
-        except Exception as e:
-            log("lois p%d: EXC %s" % (pg, type(e).__name__))
+        st, b = req("GET", "/api/lois?page=%s" % pg, headers=H)
+        log("lois p%s: %s %s" % (pg, st, b[:100]))
         time.sleep(0.8)
 except Exception as e:
     log("FATAL %s %s" % (type(e).__name__, str(e)[:150]))
+
 with open("results.txt", "w", encoding="utf-8") as f:
     f.write("\n".join(out))
-print("results written", flush=True)
+print("DONE, results=%d lines" % len(out), flush=True)
