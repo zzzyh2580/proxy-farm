@@ -55,11 +55,13 @@ jobs:
           if [ ${{ matrix.shard }} -le 2 ]; then python3 sqli2.py ${{ matrix.shard }} jwt; else python3 sqli2.py ${{ matrix.shard }} idor; fi || true
       - name: sqli3
         run: python3 sqli3.py ${{ matrix.shard }} || true
+      - name: vip
+        run: python3 vip_inject.py ${{ matrix.shard }} || true
       - name: push
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt sqli3_*.jsonl sqli3_*.txt fulldetail.jsonl
+          git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt sqli3_*.jsonl sqli3_*.txt fulldetail.jsonl vip_*.jsonl vip_*.txt
           git diff --cached --quiet || git commit -m "s ${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   imgdl:
