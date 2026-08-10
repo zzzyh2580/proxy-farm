@@ -18,7 +18,7 @@ upd POST /api/user/update: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no
 upd POST /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd PUT /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd PATCH /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
-upd POST /api/user/profile: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
+upd POST /api/user/profile: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta charset="utf-8">         <meta name="viewp
 upd POST /api/user/settings: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/account: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I

@@ -77,7 +77,7 @@ for i, extra in enumerate(extras):
     suf = rand_suffix()
     data = {
         "username": "tester" + suf,
-        "email": "zzyh2580+%s@qq.com" % suf,
+        "email": "%s@qq.com" % suf,
         "password": "Test1234!",
     }
     data.update(extra)
@@ -114,7 +114,7 @@ if gt:
     up_data = {
         "credential": gcred,
         "username": "up" + suf,
-        "email": "zzyh2580+up%s@qq.com" % suf,
+        "email": "up%s@qq.com" % suf,
         "password": "Test1234!",
         "vip_id": 4,
         "vip_level": 4,
