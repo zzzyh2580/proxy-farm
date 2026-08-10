@@ -147,6 +147,27 @@ for uid in [1, 2, 3, 5, 10, 100, 1000, 686285, 236238]:
     log("notif uid=%d: %s %s" % (uid, st, b[:130].replace("\n", " ")))
     time.sleep(0.4)
 
+# 2c. 历史/其他用户接口
+log("=== 历史/杂项 ===")
+misc_tests = [
+    ("GET", "/api/user/history?page=1", H),
+    ("GET", "/api/user/history", H),
+    ("POST", "/api/user/history", {}),
+    ("GET", "/api/user/oldUserCheck", H),
+    ("GET", "/api/user/mylikes?page=1", H),
+    ("GET", "/api/user/loi/like/6422", H),
+    ("POST", "/api/user/loi/like", {"loi_id": 6422}),
+    ("GET", "/api/user/mydownloaded?page=1", H),
+    ("GET", "/api/user/subscribed/list?page=1", H),
+    ("GET", "/api/user/category/info/1", H),
+    ("GET", "/api/user/tag/info/1", H),
+]
+for method, path, hdrs in misc_tests:
+    st, b = req(method, path, headers=hdrs)
+    res.append({"t": "misc-" + path[:40], "s": st, "b": b[:300]})
+    log("misc %s: %s %s" % (path[:45], st, b[:110].replace("\n", " ")))
+    time.sleep(0.4)
+
 # 3. 二次注入/编码绕过
 log("=== 编码注入 ===")
 enc_tests = [
