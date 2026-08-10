@@ -1,7 +1,7 @@
 login: 403
 === 评论挖掘 ===
-comment 6422: 200 {"status":"fail","err_code":70003,"err_msg":"\u8bc4\u8bba\u6392\u5e8f\u53c2\u6570\u9519\u8bef"}
-comment 6421: 200 {"status":"fail","err_code":70003,"err_msg":"\u8bc4\u8bba\u6392\u5e8f\u53c2\u6570\u9519\u8bef"}
+comment 6422: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
+comment 6421: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6420: 200 {"status":"fail","err_code":70003,"err_msg":"\u8bc4\u8bba\u6392\u5e8f\u53c2\u6570\u9519\u8bef"}
 comment 6419: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6269: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
@@ -9,27 +9,27 @@ comment 6365: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie
 === cover 响应头 ===
 cover: EXC {}
 === 备份探测 ===
-bkp /.env: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
-bkp /.git/config: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /.git/config: 404 <html> <head><title>404 Not Found</title></head> <body> <
 bkp /backup.zip: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /backup.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /db.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /dump.sql: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
-bkp /adminer.php: 404 <html> <head><title>404 Not Found</title></head> <body> <
+bkp /backup.sql: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /db.sql: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /dump.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /adminer.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /phpmyadmin/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /public/.env: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /public/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /storage/logs/laravel.log: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /index.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /vendor/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /composer.json: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /composer.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /package.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /config.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /install.php: 404 <html> <head><title>404 Not Found</title></head> <body> <
-bkp /api/v1/config: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /api/v1/config: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /api/health: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /api/health: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /debug: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 === Host 变体 ===
 host loiship.com: EXC URLError
 host loix.cc: EXC URLError

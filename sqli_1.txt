@@ -14,7 +14,7 @@ fulldetail 6418: 404
 fulldetail 6417: 200
 fulldetail 6416: 200
 fulldetail 6415: 200
-fulldetail 6414: 404
-fulldetail 6413: 200
-fulldetail 6412: 200
-fulldetail 6411: 200
+fulldetail 6414: 403
+fulldetail 6413: 403
+fulldetail 6412: 403
+fulldetail 6411: 403
