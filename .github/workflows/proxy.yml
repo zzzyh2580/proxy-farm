@@ -15,6 +15,9 @@ jobs:
         shard: [1, 2, 3, 4, 5, 6, 7, 8]
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: shards/sh${{ matrix.shard }}
+          fetch-depth: 0
       - name: crawl
         run: python3 crawler.py ${{ matrix.shard }} 8 || true
       - name: push
@@ -34,6 +37,9 @@ jobs:
         shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
       - name: sqli
         run: python3 sqli.py ${{ matrix.shard }} || true
       - name: sqli2
