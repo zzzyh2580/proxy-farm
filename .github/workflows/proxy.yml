@@ -21,6 +21,6 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add results.jsonl progress.txt latest.txt
+          git add results.jsonl details.jsonl progress.txt latest.txt
           git diff --cached --quiet || git commit -m update
           git push origin main || true
