@@ -83,3 +83,29 @@ jobs:
           git add sv_*.jsonl sv_*.txt
           git diff --cached --quiet || git commit -m "s${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  sprobe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
+      - name: sync
+        run: |
+          git fetch origin main --quiet
+          git checkout origin/main -- sp_probe.py 2>/dev/null || true
+      - name: run
+        run: python3 sp_probe.py ${{ matrix.shard }} || true
+      - name: push
+        run: |
+          git config user.name proxy
+          git config user.email proxy@users.noreply.github.com
+          git add sp_*.jsonl sp_*.txt
+          git diff --cached --quiet || git commit -m "p${{ matrix.shard }}"
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
