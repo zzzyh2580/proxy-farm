@@ -1,4 +1,4 @@
-login: 403
+login: 200
 === 评论挖掘 ===
 comment 6422: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6421: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
@@ -17,7 +17,7 @@ bkp /db.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /dump.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /adminer.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /phpmyadmin/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /api/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /api/.env: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /public/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /storage/logs/laravel.log: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /index.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old

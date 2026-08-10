@@ -1,13 +1,13 @@
 === IDOR/通知 ===
-notif uid=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
+notif uid=1: 200 {"status":"success","code":20000,"data":[{"id":8,"title":"HIHI~","content":"HI\uff0c\u9019\u88cf\u662fLOIBUS\uff0c\u767c\u73fe\u4f60\u7684\u6a02\u8da3
 notif uid=2: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
 notif uid=3: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
-notif uid=4: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
-notif uid=5: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
+notif uid=4: 200 {"status":"success","code":20000,"data":[{"id":8,"title":"HIHI~","content":"HI\uff0c\u9019\u88cf\u662fLOIBUS\uff0c\u767c\u73fe\u4f60\u7684\u6a02\u8da3
+notif uid=5: 200 {"status":"success","code":20000,"data":[{"id":8,"title":"HIHI~","content":"HI\uff0c\u9019\u88cf\u662fLOIBUS\uff0c\u767c\u73fe\u4f60\u7684\u6a02\u8da3
 notif uid=6: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
 notif uid=7: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
-notif uid=8: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
+notif uid=8: 200 {"status":"success","code":20000,"data":[{"id":8,"title":"HIHI~","content":"HI\uff0c\u9019\u88cf\u662fLOIBUS\uff0c\u767c\u73fe\u4f60\u7684\u6a02\u8da3
 notif uid=9: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
-notif uid=10: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
+notif uid=10: 200 {"status":"success","code":20000,"data":[{"id":8,"title":"HIHI~","content":"HI\uff0c\u9019\u88cf\u662fLOIBUS\uff0c\u767c\u73fe\u4f60\u7684\u6a02\u8da3
 notif uid=11: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
 notif uid=12: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US

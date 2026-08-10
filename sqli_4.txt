@@ -7,14 +7,14 @@ sort-desc: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"
 page-normal: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
 ### SQLi 判定(page and1 vs and2): 相同(不可注入) ###
 fulldetail 6422: 200
-fulldetail 6421: 403
-fulldetail 6420: 403
-fulldetail 6419: 403
-fulldetail 6418: 403
-fulldetail 6417: 403
-fulldetail 6416: 403
-fulldetail 6415: 403
+fulldetail 6421: 200
+fulldetail 6420: 200
+fulldetail 6419: 200
+fulldetail 6418: 404
+fulldetail 6417: 200
+fulldetail 6416: 200
+fulldetail 6415: 200
 fulldetail 6414: 403
 fulldetail 6413: 403
-fulldetail 6412: 200
+fulldetail 6412: 403
 fulldetail 6411: 403
