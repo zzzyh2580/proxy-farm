@@ -1,16 +1,18 @@
 === signup 注入 ===
-signup[0] {}: EXC TimeoutError
-signup[1] {'vip_id': 4}: EXC TimeoutError
-signup[2] {'vip_id': 4, 'vip_level': 4, 'svip': 1, 'expiry_at': '2099-01-01 00:00:00'}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
-VIP检查 signup-2: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
+signup[0] {}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-0: 200 {"status":"success","code":20000,"data":{"id":687116,"username":"tester406581","email":"406581@qq.com","vip_id":0,"expiry_at":null,"svip":0,"svip_expiry_at":null,"email_verified":f
+signup[1] {'vip_id': 4}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
+signup[2] {'vip_id': 4, 'vip_level': 4, 'svip': 1, 'expiry_at': '2099-01-01 00:00:00'}: EXC TimeoutError
 signup[3] {'vip_id': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[4] {'vip_level': 4}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
-signup[5] {'group_id': 4}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
-VIP检查 signup-5: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
-signup[6] {'role': 'admin'}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
+signup[5] {'group_id': 4}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
+signup[6] {'role': 'admin'}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-6: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
 signup[7] {'is_vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[8] {'vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
-signup[9] {'member': 1}: 200 {"status":"validate error","code":400,"message":{"email":["\u4e0d\u652f\u6301\u8be5\u90ae\u7bb1\uff0c\u8bf7\u6
+signup[9] {'member': 1}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-9: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
 === guest-upgrade 注入 ===
 guest-signup: 403 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
@@ -24,4 +26,3 @@ upd POST /api/user/profile: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="n
 upd POST /api/user/settings: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/account: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta charset="utf-8">         <meta name="viewp
 upd POST /api/user: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta charset="utf-8">         <meta name="viewp
-VIP检查 after-update: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null,"svip":0,"svip_expiry_at":null,"email_verified":f
