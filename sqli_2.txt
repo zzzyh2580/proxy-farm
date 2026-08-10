@@ -1,0 +1,37 @@
+login: 200 tok:eyJ0eXAiOi
+id-quote: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+id-comment: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+id-or: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+page-quote: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+page-and1: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+page-and2: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+page-union: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+sort: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+sort-desc: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+sort-semi: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+order: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+dl-quote: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+dl-or: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+dl-comment: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+op-quote: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+op-or: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+search-q: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+type: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+id-normal: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+page-normal: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+id-quote-anon: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+page-and2-anon: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+sort-anon: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+### SQLi 判定(page and1 vs and2): 相同(不可注入) ###
+fulldetail 6422: 200
+fulldetail 6421: 403
+fulldetail 6420: 403
+fulldetail 6419: 403
+fulldetail 6418: 403
+fulldetail 6417: 403
+fulldetail 6416: 403
+fulldetail 6415: 403
+fulldetail 6414: 403
+fulldetail 6413: 403
+fulldetail 6412: 403
+fulldetail 6411: 403
