@@ -1,13 +1,3 @@
-shard2 start: 134
+shard2 start: 138
 login: 200
-page 134: 200
-detail 3474: 200
-detail 3468: 403
-detail 3467: 200
-detail 3469: 403
-detail 3470: 200
-detail 3464: 403
-detail 3463: 200
-detail 3465: 403
-detail 3466: 403
-detail 3459: 403
+page 138: 403
