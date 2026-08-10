@@ -15,7 +15,7 @@ bkp /backup.zip: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 ol
 bkp /backup.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /db.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /dump.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /adminer.php: 404 <html> <head><title>404 Not Found</title></head> <body> <
+bkp /adminer.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /phpmyadmin/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /public/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old

