@@ -1,13 +1,3 @@
-shard4 start: 168
+shard4 start: 172
 login: 200
-page 168: 200
-detail 2525: 200
-detail 2524: 403
-detail 2522: 403
-detail 2520: 403
-detail 2518: 200
-detail 2519: 200
-detail 2503: 200
-detail 2504: 200
-detail 2505: 403
-detail 2499: 200
+page 172: 403
