@@ -86,52 +86,36 @@ for k in range(3):
     end_page = pg
     time.sleep(0.8)
 
-# 详情全字段 + 视频扩展名 + 特殊端点探测
-probes = []
-for it in new_items[:4]:
+# 详情: 完整 JSON (含 images 数组)
+det_lines = []
+for it in new_items:
     lid = it.get("id")
     st, b = req("GET", "/api/lois/%s" % lid, headers=H)
-    probes.append({"id": lid, "detail_status": st, "detail": b[:1000]})
     log("shard%d detail %s: %s" % (shard, lid, st))
-    time.sleep(0.4)
-    cover = it.get("cover")
-    if cover and "images.moegoat.com/" in cover:
-        fn = cover.split("images.moegoat.com/")[-1]
-        base = fn.rsplit(".", 1)[0] if "." in fn else fn
-        for ext in [".mp4", ".m3u8", ".ts", ".zip"]:
-            url = "https://images.moegoat.com/" + base + ext
-            try:
-                rq = urllib.request.Request(
-                    url, headers={"User-Agent": UA}, method="HEAD"
+    if st == 200:
+        try:
+            full = json.loads(b)
+            det_lines.append(
+                json.dumps(
+                    {"id": lid, "detail": full.get("data", {})}, ensure_ascii=False
                 )
-                ctx = ssl.create_default_context()
-                resp = urllib.request.urlopen(rq, timeout=10, context=ctx)
-                c1, ct1, cl1 = (
-                    resp.status,
-                    resp.headers.get("Content-Type", "")[:40],
-                    resp.headers.get("Content-Length", ""),
-                )
-            except urllib.error.HTTPError as e:
-                c1, ct1, cl1 = e.code, "", ""
-            except Exception:
-                c1, ct1, cl1 = "EXC", "", ""
-            probes.append({"id": lid, "url": url, "status": c1, "ct": ct1, "len": cl1})
-            log("shard%d %s%s: %s %s %s" % (shard, base[-10:], ext, c1, ct1, cl1))
-            time.sleep(0.3)
-
-# 特殊端点
-for path in ["/api/sp_list", "/api/sp_list?page=1"]:
-    st, b = req("GET", path, headers=H)
-    probes.append({"endpoint": path, "status": st, "body": b[:400]})
-    log("shard%d %s: %s" % (shard, path, st))
+            )
+        except Exception:
+            det_lines.append(
+                json.dumps({"id": lid, "detail": b[:1500]}, ensure_ascii=False)
+            )
+    else:
+        det_lines.append(
+            json.dumps({"id": lid, "detail_status": st}, ensure_ascii=False)
+        )
     time.sleep(0.5)
 
 with open(res_file, "a", encoding="utf-8") as f:
     for it in new_items:
         f.write(json.dumps(it, ensure_ascii=False) + "\n")
 with open(det_file, "a", encoding="utf-8") as f:
-    for d in probes:
-        f.write(json.dumps(d, ensure_ascii=False) + "\n")
+    for d in det_lines:
+        f.write(d + "\n")
 with open(prog_file, "w") as f:
     f.write(str(end_page))
 with open("latest.txt", "w") as f:
