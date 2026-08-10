@@ -23,7 +23,7 @@ jobs:
           git config user.email proxy@users.noreply.github.com
           git add results_*.jsonl details_*.jsonl progress_*.txt latest.txt
           git diff --cached --quiet || git commit -m "c ${{ matrix.shard }}"
-          git push origin HEAD:refs/heads/shards/sh${{ matrix.shard }} || true
+          git push --force origin HEAD:refs/heads/shards/sh${{ matrix.shard }} || true
   sqli:
     runs-on: ubuntu-latest
     permissions:
@@ -46,7 +46,7 @@ jobs:
           git config user.email proxy@users.noreply.github.com
           git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt sqli3_*.jsonl sqli3_*.txt fulldetail.jsonl
           git diff --cached --quiet || git commit -m "s ${{ matrix.shard }}"
-          git push origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   imgdl:
     runs-on: ubuntu-latest
     steps:
