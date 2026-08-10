@@ -87,9 +87,11 @@ for i, extra in enumerate(extras):
     tok = ""
     if st == 200:
         try:
+            j = json.loads(b)
             tok = (
-                json.loads(b).get("access_token")
-                or json.loads(b).get("data", {}).get("access_token")
+                j.get("signup_token")
+                or j.get("access_token")
+                or j.get("data", {}).get("access_token")
                 or ""
             ).replace("bearer ", "")
         except Exception:

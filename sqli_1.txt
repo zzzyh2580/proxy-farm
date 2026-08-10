@@ -1,18 +1,22 @@
 login: 200 tok:eyJ0eXAiOi
 page-and1: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
-page-and2: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
-dl-or: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+page-and2: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+dl-or: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
 page-normal: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
-### SQLi 判定(page and1 vs and2): 相同(不可注入) ###
+### SQLi 判定(page and1 vs and2): DIFF=可注入!!! ###
+and1: {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e\u516c\u65f6\u95f4\ud83c\udf75","tags":[{"id":2,"name":"\u9
+and2: <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
 fulldetail 6422: 403
 fulldetail 6421: 403
-fulldetail 6420: 403
-fulldetail 6419: 200
+fulldetail 6420: 200
+fulldetail 6419: 403
 fulldetail 6418: 403
 fulldetail 6417: 403
 fulldetail 6416: 403
 fulldetail 6415: 403
-fulldetail 6414: 403
+fulldetail 6414: 404
 fulldetail 6413: 403
 fulldetail 6412: 200
 fulldetail 6411: 403
