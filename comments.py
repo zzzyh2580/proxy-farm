@@ -80,10 +80,10 @@ lids = [
 
 log("=== 评论挖掘(匿名) ===")
 for lid in lids:
-    st, b = req("GET", "/api/comment/%d?page=1&sort=new" % lid)
+    st, b = req("GET", "/api/comment/%d?page=1&sort=like_number" % lid)
     res.append({"t": "cmt-%d" % lid, "s": st, "b": b[:600]})
     if st == 200:
-        log(">>> comment %d: %s" % (lid, b[:400].replace("\n", " ")))
+        log(">>> comment %d: %s" % (lid, b[:500].replace("\n", " ")))
     time.sleep(0.35)
     if st == 403:
         log("窗口关, 停")
