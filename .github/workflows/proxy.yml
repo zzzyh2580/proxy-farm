@@ -8,6 +8,7 @@ on:
       - '.github/workflows/**'
       - 'crawler.py'
       - 'sqli.py'
+      - 'sqli2.py'
       - 'imgdl.py'
 
 jobs:
@@ -42,11 +43,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: sqli
         run: python3 sqli.py ${{ matrix.shard }} || true
+      - name: sqli2
+        run: python3 sqli2.py ${{ matrix.shard }} || true
       - name: push
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sqli_*.jsonl sqli_*.txt
+          git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt
           git diff --cached --quiet || git commit -m "s ${{ matrix.shard }}"
           git push origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   imgdl:
