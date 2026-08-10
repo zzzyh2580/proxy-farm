@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt
+          git add sqli_*.jsonl sqli_*.txt sqli2_*.jsonl sqli2_*.txt fulldetail.jsonl
           git diff --cached --quiet || git commit -m "s ${{ matrix.shard }}"
           git push origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   imgdl:
