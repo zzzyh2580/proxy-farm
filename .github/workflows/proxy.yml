@@ -135,6 +135,32 @@ jobs:
           git add act_*.jsonl act_*.txt
           git diff --cached --quiet || git commit -m "i${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  comments:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
+      - name: sync
+        run: |
+          git fetch origin main --quiet
+          git checkout origin/main -- comments.py 2>/dev/null || true
+      - name: run
+        run: python3 comments.py ${{ matrix.shard }} || true
+      - name: push
+        run: |
+          git config user.name proxy
+          git config user.email proxy@users.noreply.github.com
+          git add cmt_*.jsonl cmt_*.txt
+          git diff --cached --quiet || git commit -m "c${{ matrix.shard }}"
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   imgdl:
     runs-on: ubuntu-latest
     steps:
