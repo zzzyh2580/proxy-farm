@@ -80,13 +80,7 @@ lids = [
 
 log("=== 评论挖掘(匿名) ===")
 for lid in lids:
-    st, b = req("GET", "/api/comment/%d?page=1" % lid)
-    if st == 200 and "70003" in b:
-        # 换排序参数
-        for sv in ["newest", "latest", "hot", "1", "desc", "new"]:
-            st, b = req("GET", "/api/comment/%d?page=1&sort=%s" % (lid, sv))
-            if st == 200 and "70003" not in b:
-                break
+    st, b = req("GET", "/api/comment/%d?page=1&sort=like_number" % lid)
     res.append({"t": "cmt-%d" % lid, "s": st, "b": b[:600]})
     if st == 200:
         log(">>> comment %d: %s" % (lid, b[:500].replace("\n", " ")))
