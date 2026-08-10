@@ -1,10 +1,14 @@
 === signup 注入 ===
-signup[0] {}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
-signup[1] {'vip_id': 4}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
-signup[2] {'vip_id': 4, 'vip_level': 4, 'svip': 1, 'expiry_at': '2099-01-01 00:00:00'}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
+signup[0] {}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-0: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
+signup[1] {'vip_id': 4}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-1: 200 {"status":"success","code":20000,"data":{"id":687104,"username":"tester107772","email":"107772@qq.com","vip_id":0,"expiry_at":null,"svip":0,"svip_expiry_at":null,"email_verified":f
+signup[2] {'vip_id': 4, 'vip_level': 4, 'svip': 1, 'expiry_at': '2099-01-01 00:00:00'}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-2: 200 {"status":"success","code":20000,"data":{"id":687107,"username":"tester765814","email":"765814@qq.com","vip_id":0,"expiry_at":null,"svip":0,"svip_expiry_at":null,"email_verified":f
 signup[3] {'vip_id': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[4] {'vip_level': 4}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
-signup[5] {'group_id': 4}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
+signup[5] {'group_id': 4}: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hc
+VIP检查 signup-5: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>
 signup[6] {'role': 'admin'}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[7] {'is_vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[8] {'vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
@@ -17,7 +21,7 @@ guest-signup: 403 <!DOCTYPE html>
 upd POST /api/user/update: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd PUT /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
-upd PATCH /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
+upd PATCH /api/user/info: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" conte
 upd POST /api/user/profile: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/settings: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/account: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
