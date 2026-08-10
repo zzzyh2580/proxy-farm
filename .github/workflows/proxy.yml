@@ -47,7 +47,7 @@ jobs:
       - name: sync scripts
         run: |
           git fetch origin main --quiet
-          git checkout origin/main -- sqli.py sqli2.py sqli3.py 2>/dev/null || true
+          git checkout origin/main -- sqli.py sqli2.py sqli3.py vip_inject.py 2>/dev/null || true
       - name: sqli
         run: python3 sqli.py ${{ matrix.shard }} || true
       - name: sqli2
