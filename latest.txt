@@ -1,13 +1,3 @@
-shard4 start: 60
-login: 200
-page 60: 200
-detail 5128: 200
-detail 5126: 200
-detail 5125: 200
-detail 5127: 200
-detail 5118: 200
-detail 5124: 200
-detail 5120: 200
-detail 5117: 200
-detail 5116: 200
-detail 5113: 200
+shard4 start: 68
+login: 403
+page 68: 403
