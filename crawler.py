@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib.request, json, time, sys, ssl, os
-
-shard = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-total = int(sys.argv[2]) if len(sys.argv) > 2 else 6
+import urllib.request, json, time, sys, ssl
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
 out = []
@@ -38,24 +35,8 @@ def req(method, path, data=None, headers=None, timeout=15):
         return "EXC", type(e).__name__
 
 
-def head_get(url, timeout=10):
-    h = {"User-Agent": UA, "Referer": "https://loiship.com/"}
-    r = urllib.request.Request(url, headers=h, method="HEAD")
-    ctx = ssl.create_default_context()
-    try:
-        resp = urllib.request.urlopen(r, timeout=timeout, context=ctx)
-        return (
-            resp.status,
-            resp.headers.get("Content-Type", "")[:40],
-            resp.headers.get("Content-Length", ""),
-        )
-    except urllib.error.HTTPError as e:
-        return e.code, e.headers.get("Content-Type", "")[:40], ""
-    except Exception as e:
-        return "EXC", "", ""
-
-
-# 本 shard 的进度文件
+shard = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+total = int(sys.argv[2]) if len(sys.argv) > 2 else 8
 res_file = "results_%d.jsonl" % shard
 prog_file = "progress_%d.txt" % shard
 det_file = "details_%d.jsonl" % shard
@@ -66,7 +47,7 @@ try:
         start_page = int(f.read().strip()) + total
 except Exception:
     pass
-log("shard%d start page: %d" % (shard, start_page))
+log("shard%d start: %d" % (shard, start_page))
 
 st, body = req(
     "POST", "/api/user/login", {"email": "3124323585@qq.com", "password": "9876543210."}
@@ -86,11 +67,10 @@ except Exception:
 
 new_items = []
 end_page = start_page
-# 本 shard 抓 3 个 page(间隔 total)
 for k in range(3):
     pg = start_page + k * total
     st, b = req("GET", "/api/lois?page=%d" % pg, headers=H)
-    log("shard%d page %d: %s" % (shard, pg, st))
+    log("shard%d p%d: %s" % (shard, pg, st))
     if st != 200:
         break
     try:
@@ -98,7 +78,6 @@ for k in range(3):
     except Exception:
         break
     if not items:
-        log("shard%d page %d 空" % (shard, pg))
         break
     for it in items:
         if it.get("id") not in seen:
@@ -107,28 +86,45 @@ for k in range(3):
     end_page = pg
     time.sleep(0.8)
 
-# 详情 + 封面 + 视频扩展名探测 (前 4 个新条目)
+# 详情全字段 + 视频扩展名 + 特殊端点探测
 probes = []
 for it in new_items[:4]:
     lid = it.get("id")
     st, b = req("GET", "/api/lois/%s" % lid, headers=H)
-    probes.append({"id": lid, "detail_status": st, "detail": b[:800]})
+    probes.append({"id": lid, "detail_status": st, "detail": b[:1000]})
     log("shard%d detail %s: %s" % (shard, lid, st))
-    time.sleep(0.5)
+    time.sleep(0.4)
     cover = it.get("cover")
     if cover and "images.moegoat.com/" in cover:
         fn = cover.split("images.moegoat.com/")[-1]
         base = fn.rsplit(".", 1)[0] if "." in fn else fn
         for ext in [".mp4", ".m3u8", ".ts", ".zip"]:
             url = "https://images.moegoat.com/" + base + ext
-            c1, ct1, cl1 = head_get(url)
+            try:
+                rq = urllib.request.Request(
+                    url, headers={"User-Agent": UA}, method="HEAD"
+                )
+                ctx = ssl.create_default_context()
+                resp = urllib.request.urlopen(rq, timeout=10, context=ctx)
+                c1, ct1, cl1 = (
+                    resp.status,
+                    resp.headers.get("Content-Type", "")[:40],
+                    resp.headers.get("Content-Length", ""),
+                )
+            except urllib.error.HTTPError as e:
+                c1, ct1, cl1 = e.code, "", ""
+            except Exception:
+                c1, ct1, cl1 = "EXC", "", ""
             probes.append({"id": lid, "url": url, "status": c1, "ct": ct1, "len": cl1})
-            log("shard%d probe %s%s: %s %s %s" % (shard, base[-10:], ext, c1, ct1, cl1))
+            log("shard%d %s%s: %s %s %s" % (shard, base[-10:], ext, c1, ct1, cl1))
             time.sleep(0.3)
-    c1, ct1, cl1 = head_get(cover)
-    probes.append({"id": lid, "url": cover, "status": c1, "ct": ct1, "len": cl1})
-    log("shard%d cover %s: %s %s %s" % (shard, lid, c1, ct1, cl1))
-    time.sleep(0.3)
+
+# 特殊端点
+for path in ["/api/sp_list", "/api/sp_list?page=1"]:
+    st, b = req("GET", path, headers=H)
+    probes.append({"endpoint": path, "status": st, "body": b[:400]})
+    log("shard%d %s: %s" % (shard, path, st))
+    time.sleep(0.5)
 
 with open(res_file, "a", encoding="utf-8") as f:
     for it in new_items:
@@ -140,4 +136,4 @@ with open(prog_file, "w") as f:
     f.write(str(end_page))
 with open("latest.txt", "w") as f:
     f.write("\n".join(out))
-log("shard%d DONE 累计 %d" % (shard, len(seen)))
+log("shard%d DONE %d" % (shard, len(seen)))
