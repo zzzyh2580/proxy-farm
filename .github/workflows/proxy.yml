@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
       - name: sync
         run: |
-          git fetch origin main --quiet
+          git fetch origin main --quiet || true
           git checkout origin/main -- crawler.py 2>/dev/null || true
       - name: crawl
         run: python3 crawler.py ${{ matrix.shard }} 4 || true
@@ -28,7 +28,7 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add results_*.jsonl details_*.jsonl progress_*.txt latest.txt
+          git add -A
           git diff --cached --quiet || git commit -m "c${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sh${{ matrix.shard }} || true
   comments:
@@ -46,7 +46,7 @@ jobs:
           fetch-depth: 0
       - name: sync
         run: |
-          git fetch origin main --quiet
+          git fetch origin main --quiet || true
           git checkout origin/main -- comments.py 2>/dev/null || true
       - name: run
         run: python3 comments.py ${{ matrix.shard }} || true
@@ -54,7 +54,7 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add cmt_*.jsonl cmt_*.txt
+          git add -A
           git diff --cached --quiet || git commit -m "c${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   svprobe:
@@ -72,7 +72,7 @@ jobs:
           fetch-depth: 0
       - name: sync
         run: |
-          git fetch origin main --quiet
+          git fetch origin main --quiet || true
           git checkout origin/main -- sv_probe.py 2>/dev/null || true
       - name: run
         run: python3 sv_probe.py ${{ matrix.shard }} || true
@@ -80,8 +80,34 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sv_*.jsonl sv_*.txt
+          git add -A
           git diff --cached --quiet || git commit -m "s${{ matrix.shard }}"
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  jwt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
+      - name: sync
+        run: |
+          git fetch origin main --quiet || true
+          git checkout origin/main -- jwt_collect.py 2>/dev/null || true
+      - name: run
+        run: python3 jwt_collect.py ${{ matrix.shard }} || true
+      - name: push
+        run: |
+          git config user.name proxy
+          git config user.email proxy@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet || git commit -m "j${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
   sprobe:
     runs-on: ubuntu-latest
@@ -99,17 +125,65 @@ jobs:
       - name: sync
         run: |
           git fetch origin main --quiet || true
-          git checkout origin/main -- sp_probe.py jwt_collect.py login_brute.py user_enum.py 2>/dev/null || true
+          git checkout origin/main -- sp_probe.py 2>/dev/null || true
       - name: run
-        run: |
-          python3 jwt_collect.py ${{ matrix.shard }} || true
-          python3 sp_probe.py ${{ matrix.shard }} || true
-          python3 login_brute.py ${{ matrix.shard }} || true
-          python3 user_enum.py ${{ matrix.shard }} || true
+        run: python3 sp_probe.py ${{ matrix.shard }} || true
       - name: push
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
           git add -A
           git diff --cached --quiet || git commit -m "p${{ matrix.shard }}"
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  brute:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
+      - name: sync
+        run: |
+          git fetch origin main --quiet || true
+          git checkout origin/main -- login_brute.py 2>/dev/null || true
+      - name: run
+        run: python3 login_brute.py ${{ matrix.shard }} || true
+      - name: push
+        run: |
+          git config user.name proxy
+          git config user.email proxy@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet || git commit -m "b${{ matrix.shard }}"
+          git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  uenum:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sql${{ matrix.shard }}
+          fetch-depth: 0
+      - name: sync
+        run: |
+          git fetch origin main --quiet || true
+          git checkout origin/main -- user_enum.py 2>/dev/null || true
+      - name: run
+        run: python3 user_enum.py ${{ matrix.shard }} || true
+      - name: push
+        run: |
+          git config user.name proxy
+          git config user.email proxy@users.noreply.github.com
+          git add -A
+          git diff --cached --quiet || git commit -m "u${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
