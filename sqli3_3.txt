@@ -20,15 +20,15 @@ bkp /phpmyadmin/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 o
 bkp /api/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /public/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /storage/logs/laravel.log: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /index.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /index.php: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /vendor/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /composer.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /package.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /package.json: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /config.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /install.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/v1/config: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /api/health: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /api/health: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 === Host 变体 ===
 host loiship.com: EXC URLError
