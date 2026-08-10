@@ -1,3 +1,13 @@
-shard1 start page: 1
+shard2 start: 2
 login: 200
-shard1 page 1: 403
+page 2: 200
+detail 6400: 200
+detail 6399: 200
+detail 6398: 200
+detail 6397: 200
+detail 6394: 200
+detail 6396: 200
+detail 6395: 200
+detail 6393: 200
+detail 6391: 200
+detail 6392: 200
