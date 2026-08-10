@@ -18,6 +18,10 @@ jobs:
         with:
           ref: shards/sh${{ matrix.shard }}
           fetch-depth: 0
+      - name: sync scripts
+        run: |
+          git fetch origin main --quiet
+          git checkout origin/main -- crawler.py 2>/dev/null || true
       - name: crawl
         run: python3 crawler.py ${{ matrix.shard }} 8 || true
       - name: push
@@ -40,6 +44,10 @@ jobs:
         with:
           ref: shards/sql${{ matrix.shard }}
           fetch-depth: 0
+      - name: sync scripts
+        run: |
+          git fetch origin main --quiet
+          git checkout origin/main -- sqli.py sqli2.py sqli3.py 2>/dev/null || true
       - name: sqli
         run: python3 sqli.py ${{ matrix.shard }} || true
       - name: sqli2
