@@ -1,13 +1,13 @@
-shard8 start: 80
+shard8 start: 88
 login: 200
-page 80: 200
-detail 4679: 200
-detail 4680: 200
-detail 4677: 200
-detail 4674: 200
-detail 4676: 403
-detail 4673: 200
-detail 4675: 200
-detail 4671: 200
-detail 4669: 200
-detail 4672: 403
+page 88: 200
+detail 4504: 200
+detail 4503: 403
+detail 4498: 403
+detail 4497: 403
+detail 4499: 403
+detail 4500: 403
+detail 4493: 403
+detail 4496: 403
+detail 4494: 403
+detail 4495: 403
