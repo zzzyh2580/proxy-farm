@@ -1,0 +1,41 @@
+login: 200 tok:eyJ0eXAiOi
+id-quote: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+id-comment: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+id-or: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+page-quote: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+page-and1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+page-and2: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+page-union: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+sort: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+sort-desc: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+sort-semi: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+order: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+dl-quote: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+dl-or: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+dl-comment: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+op-quote: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+op-or: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+search-q: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+type: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+id-normal: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+page-normal: 200 {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529
+id-quote-anon: 200 {"status":"success","code":20000,"data":{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e
+page-and2-anon: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+sort-anon: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+### SQLi 判定(page and1 vs and2): DIFF=可注入!!! ###
+and1: <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US
+and2: {"status":"success","code":20000,"data":[{"id":6422,"loi_title":"\ud83d\ude09olive - \u529e\u516c\u65f6\u95f4\ud83c\udf75","tags":[{"id":2,"name":"\u9
+fulldetail 6422: 403
+fulldetail 6421: 403
+fulldetail 6420: 200
+fulldetail 6419: 403
+fulldetail 6418: 404
+fulldetail 6417: 403
+fulldetail 6416: 403
+fulldetail 6415: 403
+fulldetail 6414: 404
+fulldetail 6413: 403
+fulldetail 6412: 200
+fulldetail 6411: 403
