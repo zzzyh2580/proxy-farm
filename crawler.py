@@ -35,18 +35,21 @@ def req(method, path, data=None, headers=None, timeout=15):
         return "EXC", type(e).__name__
 
 
-def img_req(url, timeout=12):
+def head_get(url, timeout=10):
     h = {"User-Agent": UA, "Referer": "https://loiship.com/"}
-    r = urllib.request.Request(url, headers=h)
+    r = urllib.request.Request(url, headers=h, method="HEAD")
     ctx = ssl.create_default_context()
     try:
         resp = urllib.request.urlopen(r, timeout=timeout, context=ctx)
-        data = resp.read(16)
-        return resp.status, data[:4].hex() if data else ""
+        return (
+            resp.status,
+            resp.headers.get("Content-Type", "")[:40],
+            resp.headers.get("Content-Length", ""),
+        )
     except urllib.error.HTTPError as e:
-        return e.code, ""
+        return e.code, e.headers.get("Content-Type", "")[:40], ""
     except Exception as e:
-        return "EXC", ""
+        return "EXC", "", ""
 
 
 start_page = 1
@@ -77,7 +80,6 @@ new_items = []
 end_page = start_page
 for pg in range(start_page, start_page + 3):
     st, b = req("GET", "/api/lois?page=%d" % pg, headers=H)
-    log("page %d: %s" % (pg, st))
     if st != 200:
         break
     try:
@@ -85,7 +87,7 @@ for pg in range(start_page, start_page + 3):
     except Exception:
         break
     if not items:
-        log("到底, 全量完成")
+        log("到底")
         break
     for it in items:
         if it.get("id") not in seen:
@@ -94,33 +96,43 @@ for pg in range(start_page, start_page + 3):
     end_page = pg
     time.sleep(0.8)
 
-# 详情 + 图片测试 (前 4 个新条目)
-detail_info = []
-for it in new_items[:4]:
+# 详情 + 封面图测试 + 视频扩展名猜测
+probes = []
+probed = set()
+for it in new_items[:6]:
     lid = it.get("id")
     st, b = req("GET", "/api/lois/%s" % lid, headers=H)
-    d = {"id": lid, "detail_status": st, "detail": b[:500]}
-    detail_info.append(d)
+    probes.append({"id": lid, "detail_status": st, "detail": b[:800]})
     log("detail %s: %s" % (lid, st))
     time.sleep(0.5)
-    # 测封面图
     cover = it.get("cover")
-    if cover:
-        ist, magic = img_req(cover)
-        d["img_status"] = ist
-        d["img_magic"] = magic
-        log("img %s: %s %s" % (lid, ist, magic))
-        time.sleep(0.3)
+    if cover and "images.moegoat.com/" in cover:
+        # 提取 hash 的文件名(去扩展名)
+        fn = cover.split("images.moegoat.com/")[-1]
+        base = fn.rsplit(".", 1)[0] if "." in fn else fn
+        for ext in [".mp4", ".m3u8", ".ts", ".mkv", ".webm", ".mov", ".zip", ".html"]:
+            url = "https://images.moegoat.com/" + base + ext
+            if url in probed:
+                continue
+            probed.add(url)
+            c1, ct1, cl1 = head_get(url)
+            probes.append({"id": lid, "url": url, "status": c1, "ct": ct1, "len": cl1})
+            log("probe %s%s: %s %s %s" % (base[-12:], ext, c1, ct1, cl1))
+            time.sleep(0.3)
+    # cover 图本体测试
+    c1, ct1, cl1 = head_get(cover)
+    probes.append({"id": lid, "url": cover, "status": c1, "ct": ct1, "len": cl1})
+    log("cover %s: %s %s %s" % (lid, c1, ct1, cl1))
+    time.sleep(0.3)
 
-# 累积写
 with open("results.jsonl", "a", encoding="utf-8") as f:
     for it in new_items:
         f.write(json.dumps(it, ensure_ascii=False) + "\n")
 with open("details.jsonl", "a", encoding="utf-8") as f:
-    for d in detail_info:
+    for d in probes:
         f.write(json.dumps(d, ensure_ascii=False) + "\n")
 with open("progress.txt", "w") as f:
     f.write(str(end_page))
 with open("latest.txt", "w") as f:
     f.write("\n".join(out))
-log("DONE 累计 %d, 详情 %d" % (len(seen), len(detail_info)))
+log("DONE 累计 %d" % len(seen))
