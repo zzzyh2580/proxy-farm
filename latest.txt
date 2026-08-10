@@ -1,13 +1,3 @@
-shard7 start: 71
+shard7 start: 79
 login: 200
-page 71: 200
-detail 4884: 403
-detail 4883: 403
-detail 4882: 200
-detail 4881: 403
-detail 4880: 403
-detail 4879: 200
-detail 4878: 200
-detail 4875: 403
-detail 4876: 200
-detail 4877: 200
+page 79: 403
