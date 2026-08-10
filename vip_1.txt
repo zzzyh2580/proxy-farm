@@ -10,7 +10,9 @@ signup[7] {'is_vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-j
 signup[8] {'vip': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 signup[9] {'member': 1}: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <
 === guest-upgrade 注入 ===
-guest-signup: 200 {"status":"validate error","code":400,"message":{"device_id":["The device id field is required."]}}
+guest-signup: 403 <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if I
 === update 注入 ===
 upd POST /api/user/update: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
 upd POST /api/user/info: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if I
