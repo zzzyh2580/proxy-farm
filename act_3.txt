@@ -1,32 +1,13 @@
 login: 200
 === IDOR: 枚举会员用户 ===
 info?user_id=1: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null
-info?uid=1: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null
-info?id=1: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null
-info?userId=1: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null
-info?member_id=1: 200 {"status":"success","code":20000,"data":{"id":686285,"username":"zzz123yh","email":"3124323585@qq.com","vip_id":0,"expiry_at":null
-mylikes user_id=100: 200 空
-mylikes user_id=140: 200 空
-mylikes user_id=180: 200 空
-mylikes user_id=220: 200 空
-mylikes user_id=260: 200 空
-mylikes user_id=300: 200 空
-mylikes user_id=340: 200 空
-mylikes user_id=380: 200 空
-mylikes user_id=420: 200 空
-mylikes user_id=460: 200 空
-mylikes user_id=500: 200 空
-mylikes user_id=540: 200 空
-mylikes user_id=580: 200 空
-mylikes user_id=620: 200 空
-mylikes user_id=660: 200 空
-mylikes user_id=700: 200 空
-mylikes user_id=740: 200 空
-mylikes user_id=780: 200 空
-mylikes user_id=820: 200 空
+info?uid=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie
+info?id=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie
+info?userId=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie
+info?member_id=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie
 mydownloaded?user_id=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 mydownloaded?uid=1: 200 {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":20,"current_page":1,"total_pages
-mydownloaded?id=1: 200 {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":20,"current_page":1,"total_pages
-mydownloaded?user=1: 200 {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":20,"current_page":1,"total_pages
+mydownloaded?id=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
+mydownloaded?user=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 mydownloaded?member_id=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 mydownloaded?userId=1: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
