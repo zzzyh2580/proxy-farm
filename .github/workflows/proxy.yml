@@ -8,6 +8,7 @@ on:
       - '.github/workflows/**'
       - 'crawler.py'
       - 'sqli.py'
+      - 'imgdl.py'
 
 jobs:
   crawl:
@@ -48,3 +49,17 @@ jobs:
           git add sqli_*.jsonl sqli_*.txt
           git diff --cached --quiet || git commit -m "s ${{ matrix.shard }}"
           git push origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
+  imgdl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: shards/sh1
+      - name: download images
+        run: python3 imgdl.py || true
+      - uses: actions/upload-artifact@v4
+        with:
+          name: loiship-imgs
+          path: imgs/
+          retention-days: 90
+          if-no-files-found: warn
