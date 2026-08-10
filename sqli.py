@@ -108,6 +108,15 @@ if a1 and a2:
         log("and1: %s" % a1["b"][:150])
         log("and2: %s" % a2["b"][:150])
 
+# 完整详情抓取 (images 数组泄露)
+for lid in [6422, 6421, 6420, 6419, 6418, 6417, 6416, 6415, 6414, 6413, 6412, 6411]:
+    st, b = req("GET", "/api/lois/%d" % lid, headers=H)
+    with open("fulldetail.jsonl", "a", encoding="utf-8") as f:
+        f.write(json.dumps({"id": lid, "detail": b[:2500]}, ensure_ascii=False) + "\n")
+    log("fulldetail %d: %s" % (lid, st))
+    time.sleep(0.5)
+
+
 with open("sqli_%d.jsonl" % shard, "w", encoding="utf-8") as f:
     for r in res:
         f.write(json.dumps(r, ensure_ascii=False) + "\n")
