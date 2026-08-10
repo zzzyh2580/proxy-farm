@@ -59,39 +59,36 @@ if st == 200:
 H = {"Authorization": "Bearer " + tok}
 time.sleep(1)
 
+# 已收集的 id(去重判断)
 try:
     with open(res_file) as f:
         seen = set(json.loads(l)["id"] for l in f if l.strip())
 except Exception:
     seen = set()
 
+# 1 页列表(推进游标)
 new_items = []
 end_page = start_page
-for k in range(3):
-    pg = start_page + k * total
-    st, b = req("GET", "/api/lois?page=%d" % pg, headers=H)
-    log("shard%d p%d: %s" % (shard, pg, st))
-    if st != 200:
-        break
+st, b = req("GET", "/api/lois?page=%d" % start_page, headers=H)
+log("page %d: %s" % (start_page, st))
+if st == 200:
     try:
         items = json.loads(b).get("data") or []
+        for it in items:
+            if it.get("id") not in seen:
+                new_items.append(it)
+                seen.add(it.get("id"))
+        end_page = start_page
     except Exception:
-        break
-    if not items:
-        break
-    for it in items:
-        if it.get("id") not in seen:
-            new_items.append(it)
-            seen.add(it.get("id"))
-    end_page = pg
+        pass
     time.sleep(0.8)
 
-# 详情: 完整 JSON (含 images 数组)
+# 详情完整 JSON (最多 10 条)
 det_lines = []
-for it in new_items:
+for it in new_items[:10]:
     lid = it.get("id")
     st, b = req("GET", "/api/lois/%s" % lid, headers=H)
-    log("shard%d detail %s: %s" % (shard, lid, st))
+    log("detail %s: %s" % (lid, st))
     if st == 200:
         try:
             full = json.loads(b)
@@ -120,4 +117,7 @@ with open(prog_file, "w") as f:
     f.write(str(end_page))
 with open("latest.txt", "w") as f:
     f.write("\n".join(out))
-log("shard%d DONE %d" % (shard, len(seen)))
+log(
+    "shard%d DONE 列表%d 详情%d 累计%d"
+    % (shard, len(new_items), len(det_lines), len(seen))
+)
