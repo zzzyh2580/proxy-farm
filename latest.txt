@@ -1,13 +1,13 @@
-shard2 start: 18
+shard2 start: 26
 login: 200
-page 18: 200
-detail 6063: 200
-detail 6065: 200
-detail 6062: 200
-detail 6064: 200
-detail 6058: 200
-detail 6059: 200
-detail 6061: 200
-detail 6057: 200
-detail 6054: 200
-detail 6056: 200
+page 26: 200
+detail 5891: 200
+detail 5893: 200
+detail 5892: 200
+detail 5890: 200
+detail 5886: 200
+detail 5889: 200
+detail 5888: 200
+detail 5885: 200
+detail 5884: 200
+detail 5883: 200
