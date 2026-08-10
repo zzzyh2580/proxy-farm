@@ -80,13 +80,50 @@ lids = [
 
 log("=== 评论挖掘(匿名) ===")
 for lid in lids:
-    st, b = req("GET", "/api/comment/%d?page=1&sort=like_number" % lid)
-    res.append({"t": "cmt-%d" % lid, "s": st, "b": b[:600]})
-    if st == 200:
-        log(">>> comment %d: %s" % (lid, b[:500].replace("\n", " ")))
-    time.sleep(0.35)
+    for pg in [1, 2, 3]:
+        st, b = req("GET", "/api/comment/%d?page=%d&sort=like_number" % (lid, pg))
+        res.append({"t": "cmt-%d-p%d" % (lid, pg), "s": st, "b": b[:600]})
+        if st == 200:
+            # 检测链接
+            has_link = any(
+                k in b.lower()
+                for k in [
+                    "http",
+                    "pan.baidu",
+                    "t.me",
+                    "mega",
+                    "aliyun",
+                    "quark",
+                    "lanzou",
+                    "115.com",
+                    "weiyun",
+                    "url",
+                    "链接",
+                    "提取码",
+                ]
+            )
+            log(
+                ">>> comment %d p%d: %s%s"
+                % (
+                    lid,
+                    pg,
+                    b[:400].replace("\n", " "),
+                    " <<<含链接!" if has_link else "",
+                )
+            )
+            # 空则停
+            try:
+                if not (json.loads(b).get("data") or []):
+                    break
+            except Exception:
+                break
+        else:
+            break
+        time.sleep(0.35)
+        if st == 403:
+            log("窗口关, 停")
+            raise SystemExit
     if st == 403:
-        log("窗口关, 停")
         break
 
 with open("cmt_%d.jsonl" % shard, "w", encoding="utf-8") as f:
