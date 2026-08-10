@@ -3,7 +3,7 @@ login: 403
 comment 6422: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6421: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6420: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
-comment 6419: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
+comment 6419: 200 {"status":"fail","err_code":70003,"err_msg":"\u8bc4\u8bba\u6392\u5e8f\u53c2\u6570\u9519\u8bef"}
 comment 6269: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 comment 6365: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class
 === cover 响应头 ===
@@ -14,7 +14,7 @@ bkp /.git/config: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 o
 bkp /backup.zip: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /backup.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /db.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /dump.sql: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
+bkp /dump.sql: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /adminer.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /phpmyadmin/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/.env: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
@@ -23,12 +23,12 @@ bkp /storage/logs/laravel.log: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class
 bkp /index.php: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
 bkp /vendor/: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /composer.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /package.json: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /package.json: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /config.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /install.php: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/v1/config: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /api/debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
-bkp /api/health: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta ch
+bkp /api/health: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 bkp /debug: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 old
 === Host 变体 ===
 host loiship.com: EXC URLError
