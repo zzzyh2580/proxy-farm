@@ -1,13 +1,13 @@
-shard4 start: 20
+shard4 start: 28
 login: 200
-page 20: 200
-detail 6020: 200
-detail 6022: 200
-detail 6014: 200
-detail 6013: 200
-detail 6016: 200
-detail 6015: 200
-detail 6009: 200
-detail 6011: 200
-detail 6012: 200
-detail 6010: 200
+page 28: 200
+detail 5851: 200
+detail 5849: 200
+detail 5850: 200
+detail 5852: 200
+detail 5848: 200
+detail 5847: 200
+detail 5846: 200
+detail 5845: 200
+detail 5844: 200
+detail 5843: 200
