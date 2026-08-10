@@ -51,7 +51,8 @@ jobs:
       - name: sqli
         run: python3 sqli.py ${{ matrix.shard }} || true
       - name: sqli2
-        run: python3 sqli2.py ${{ matrix.shard }} || true
+        run: |
+          if [ ${{ matrix.shard }} -le 2 ]; then python3 sqli2.py ${{ matrix.shard }} jwt; else python3 sqli2.py ${{ matrix.shard }} idor; fi || true
       - name: sqli3
         run: python3 sqli3.py ${{ matrix.shard }} || true
       - name: push
