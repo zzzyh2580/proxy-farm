@@ -1,6 +1,6 @@
 === 评论挖掘(匿名) ===
->>> comment 6422 p1: {"status":"success","code":20000,"data":[{"id":8902,"loi_title":[],"content":"\u4e0d\u5bb9\u6613\u554a\u5144\u5f1f\u4eec\u65f6\u9694\u4e00\u4e2a\u6708\u7ec8\u4e8e\u80af\u66f4\u65b0olive\u4e86","author":"846851493","user_vip_id":0,"user_svip":0,"author_point":1,"like_number":7,"like_loading":false,"own":false,"liked":false,"date":"2026-08-08 00:15:31"},{"id":8904,"loi_title":[],"content":"\u7ad9\u9
->>> comment 6422 p2: {"status":"success","code":20000,"data":[],"pagination":{"total":3,"count":0,"per_page":10,"current_page":2,"total_pages":1}}
+>>> comment 6422 p1: {"status":"success","code":20000,"data":[{"id":8902,"loi_title":[],"content":"\u4e0d\u5bb9\u6613\u554a\u5144\u5f1f\u4eec\u65f6\u9694\u4e00\u4e2a\u6708\u7ec8\u4e8e\u80af\u66f4\u65b0olive\u4e86","author":"846851493","user_vip_id":0,"user_svip":0,"author_point":1,"like_number":8,"like_loading":false,"own":false,"liked":false,"date":"2026-08-08 00:15:31"},{"id":8905,"loi_title":[],"content":"\u5e0c\u6
+>>> comment 6422 p2: {"status":"success","code":20000,"data":[],"pagination":{"total":4,"count":0,"per_page":10,"current_page":2,"total_pages":1}}
 >>> comment 6421 p1: {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":10,"current_page":1,"total_pages":1}}
 >>> comment 6420 p1: {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":10,"current_page":1,"total_pages":1}}
 >>> comment 6419 p1: {"status":"success","code":20000,"data":[],"pagination":{"total":0,"count":0,"per_page":10,"current_page":1,"total_pages":1}}
