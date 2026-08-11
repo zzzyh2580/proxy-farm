@@ -1,13 +1,3 @@
-shard3 start: 271
+shard3 start: 275
 login: 200
-page 271: 200
-detail 87: 200
-detail 88: 403
-detail 89: 403
-detail 90: 200
-detail 91: 200
-detail 94: 200
-detail 73: 200
-detail 74: 200
-detail 75: 403
-detail 77: 200
+page 275: 403
