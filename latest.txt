@@ -1,13 +1,3 @@
-shard3 start: 259
-login: 200
-page 259: 200
-detail 377: 200
-detail 376: 200
-detail 375: 200
-detail 374: 200
-detail 372: 200
-detail 371: 200
-detail 370: 200
-detail 369: 200
-detail 368: 200
-detail 356: 200
+shard3 start: 263
+login: 403
+page 263: 403
