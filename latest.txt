@@ -1,3 +1,13 @@
-shard2 start: 230
+shard2 start: 234
 login: 200
-page 230: 403
+page 234: 200
+detail 979: 403
+detail 977: 403
+detail 757: 403
+detail 769: 403
+detail 897: 403
+detail 976: 200
+detail 975: 403
+detail 973: 403
+detail 972: 403
+detail 971: 403
