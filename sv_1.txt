@@ -1,7 +1,9 @@
-login: 200
+login: EXC
 dl 6422 (token): 401 Token not provided
 dl 6420 (token): 401 Token not provided
 dl 6419 (token): 401 Token not provided
 guest-signup: 200
 dl anon: 401 Token not provided
-signup: EXC TimeoutError
+signup: 403 <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class
