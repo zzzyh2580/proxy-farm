@@ -1,9 +1,9 @@
 login: 200
-dl 6422 (token): EXC TimeoutError
+dl 6422 (token): 200 {"status":"success","code":20000,"data":[]}
 dl 6420 (token): 200 {"status":"success","code":20000,"data":[]}
 dl 6419 (token): 200 {"status":"success","code":20000,"data":[]}
-guest-signup: 403
+guest-signup: 200
 dl anon: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
 signup: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hcGlcL3VzZXJ
-dl newuser: 200 {"status":"success","code":20000,"data":[]}
-op newuser: 200 {"status":"success","code":20000,"data":[]}
+dl newuser: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
+op newuser: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
