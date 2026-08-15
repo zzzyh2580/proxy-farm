@@ -1,4 +1,4 @@
-login: EXC
+login: 200
 === sp_list ===
 sp /api/sp_list: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
 sp /api/sp_list?page=1: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
@@ -12,5 +12,8 @@ search cosplay: 200 {"status":"success","code":20000,"data":[{"id":6433,"loi_tit
 search JK: 200 {"status":"success","code":20000,"data":[{"id":6433,"loi_title":"\u5c0f\u61d2\u732a - \u5bb6\u653f\u5c0f\u59b9\u7684\u7279\u6b8a\u5236\u670d\u670d\u52
 search 写真: 200 {"status":"success","code":20000,"data":[{"id":6433,"loi_title":"\u5c0f\u61d2\u732a - \u5bb6\u653f\u5c0f\u59b9\u7684\u7279\u6b8a\u5236\u670d\u670d\u52
 === online_play 响应完整性 ===
+op 6422: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+op 6421: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
+op 6420: 200 {"status":"fail","err_code":60001,"err_msg":"\u672a\u5f00\u901a\u4f1a\u5458"}
 === mydownloads 越权 ===
 窗口关(mdl), 停
