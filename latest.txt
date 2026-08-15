@@ -1,3 +1,3 @@
-shard3 start: 763
-login: EXC
-page 763: 200
+shard3 start: 767
+login: 200
+page 767: 200
