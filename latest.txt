@@ -1,3 +1,3 @@
-shard2 start: 738
+shard2 start: 742
 login: EXC
-page 738: 403
+page 742: 200
