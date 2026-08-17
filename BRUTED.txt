@@ -1,2 +1,2 @@
-846851493@qq.com:123456
+846851493@qq.com:123456789
 {"status":"validate error","code":400,"message":{"password":["The password format is invalid."]}}
