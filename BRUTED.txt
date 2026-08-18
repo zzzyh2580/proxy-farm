@@ -1,2 +1,2 @@
-846851493@qq.com:123456
-{"status":"validate error","code":400,"message":{"password":["The password format is invalid."]}}
+846851493@qq.com:qq846851493
+{"access_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hcGlcL3VzZXJcL2xvZ2luIiwiaWF0IjoxNzg3MDIzODc2LCJuYmYiOjE3ODcwMjM4NzYsInN1YiI6NzkxMzg5LCJqdGkiOiJMRWZSc2dqejF2c0xHN2hPRXUzWG5ZbXhXNFBEQWVKQllVbzhTUnRvIiwicHJ2IjoiODdlMGFmMWVmOWZkMTU4MTJmZGVjOTcxNTNhMTRlMGIwNDc1NDZhYSIsInJvbGUiOiJ1c2VyIn0.feQGTBMAybyPC4eOubretjLSr2tVzjlvfjY9f-dMK-8","vip_level":1}
