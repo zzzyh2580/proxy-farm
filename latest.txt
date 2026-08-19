@@ -1,3 +1,3 @@
-shard2 start: 1374
-login: 200
-page 1374: 200
+shard2 start: 1378
+login: EXC
+page 1378: EXC
