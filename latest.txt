@@ -1,3 +1,3 @@
-shard4 start: 1348
-login: EXC
-page 1348: EXC
+shard4 start: 1352
+login: 200
+page 1352: 403
