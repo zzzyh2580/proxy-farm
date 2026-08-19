@@ -2,8 +2,8 @@ login: EXC
 dl 6422 (token): EXC TimeoutError
 dl 6420 (token): EXC TimeoutError
 dl 6419 (token): EXC TimeoutError
-guest-signup: 200
-dl anon: 200 {"status":"success","code":20000,"data":{"bdp":"","bdp_key":"","sv_list":[]}}
-signup: 200 {"signup_token":"bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvYXBpLm1vZWdvYXQuY29tXC9hcGlcL3VzZXJ
-dl newuser: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
-op newuser: 200 {"status":"success","code":20000,"data":[]}
+guest-signup: EXC
+dl anon: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
+signup: 403 <!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 7]>    <html class
