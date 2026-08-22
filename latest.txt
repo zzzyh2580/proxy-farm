@@ -1,3 +1,3 @@
-shard2 start: 1870
+shard2 start: 1874
 login: 403
-page 1870: EXC
+page 1874: 200
