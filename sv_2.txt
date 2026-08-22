@@ -1,7 +1,7 @@
 login: 403
 dl 6422 (token): EXC TimeoutError
 dl 6420 (token): 200 {"status":"success","code":20000,"data":{"bdp":"","bdp_key":"","sv_list":[]}}
-dl 6419 (token): 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
+dl 6419 (token): 200 {"status":"success","code":20000,"data":{"bdp":"","bdp_key":"","sv_list":[]}}
 guest-signup: 403
 dl anon: 403 <!DOCTYPE html> <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en-US"> <![endif]--> <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]--> <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]--> <!--[if g
 signup: 403 <!DOCTYPE html>
