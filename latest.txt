@@ -1,3 +1,3 @@
-shard3 start: 2067
+shard3 start: 2071
 login: 403
-page 2067: EXC
+page 2071: 200
