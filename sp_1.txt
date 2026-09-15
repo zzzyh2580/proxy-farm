@@ -6,11 +6,16 @@ sp /api/sp_list?page=1&sort=like_numbe: 405 <!DOCTYPE html> <html>     <head>   
 sp /api/sp_list?page=1&type=1: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
 sp /api/sp_list/1: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta charset="utf-8">         <meta name="viewport" content="width=device-width, initial-scale=1">          <title>Not Found</title>          <!-- 
 === 搜索 ===
-search olive: 200 {"status":"success","code":20000,"data":[{"id":6532,"loi_title":"\u5c0f\u5343 - \u7a7f\u7740\u9ed1\u4e1d\u5728\u843d\u5730\u7a97\u524d\u548c\u54e5\u54
-search 米胡桃: 200 {"status":"success","code":20000,"data":[{"id":6532,"loi_title":"\u5c0f\u5343 - \u7a7f\u7740\u9ed1\u4e1d\u5728\u843d\u5730\u7a97\u524d\u548c\u54e5\u54
-search cosplay: 200 {"status":"success","code":20000,"data":[{"id":6532,"loi_title":"\u5c0f\u5343 - \u7a7f\u7740\u9ed1\u4e1d\u5728\u843d\u5730\u7a97\u524d\u548c\u54e5\u54
-search JK: 200 {"status":"success","code":20000,"data":[{"id":6532,"loi_title":"\u5c0f\u5343 - \u7a7f\u7740\u9ed1\u4e1d\u5728\u843d\u5730\u7a97\u524d\u548c\u54e5\u54
-search 写真: 200 {"status":"success","code":20000,"data":[{"id":6532,"loi_title":"\u5c0f\u5343 - \u7a7f\u7740\u9ed1\u4e1d\u5728\u843d\u5730\u7a97\u524d\u548c\u54e5\u54
+search olive: 200 {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":
+  >>> 含视频/网盘链接 search-olive: {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":[{"id":6,"name":"\u7f8e\u817f","color":"#FF9B65"},{"id":10,"name":"\u8db3\u4ea4","color":"#FF6800"},{"id":29,"name":"\u9ed1\u4e1d","color":"#757575"},
+search 米胡桃: 200 {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":
+  >>> 含视频/网盘链接 search-米胡桃: {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":[{"id":6,"name":"\u7f8e\u817f","color":"#FF9B65"},{"id":10,"name":"\u8db3\u4ea4","color":"#FF6800"},{"id":29,"name":"\u9ed1\u4e1d","color":"#757575"},
+search cosplay: 200 {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":
+  >>> 含视频/网盘链接 search-cosplay: {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":[{"id":6,"name":"\u7f8e\u817f","color":"#FF9B65"},{"id":10,"name":"\u8db3\u4ea4","color":"#FF6800"},{"id":29,"name":"\u9ed1\u4e1d","color":"#757575"},
+search JK: 200 {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":
+  >>> 含视频/网盘链接 search-JK: {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":[{"id":6,"name":"\u7f8e\u817f","color":"#FF9B65"},{"id":10,"name":"\u8db3\u4ea4","color":"#FF6800"},{"id":29,"name":"\u9ed1\u4e1d","color":"#757575"},
+search 写真: 200 {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":
+  >>> 含视频/网盘链接 search-写真: {"status":"success","code":20000,"data":[{"id":6543,"loi_title":"\u6df1\u60c5\u5c0fK - \u9152\u7ea2\u5305\u81c0\u88d9\u9ed1\u4e1d\u7f8e\u817f","tags":[{"id":6,"name":"\u7f8e\u817f","color":"#FF9B65"},{"id":10,"name":"\u8db3\u4ea4","color":"#FF6800"},{"id":29,"name":"\u9ed1\u4e1d","color":"#757575"},
 === online_play 响应完整性 ===
 === mydownloads 越权 ===
 窗口关(mdl), 停
