@@ -1,5 +1,5 @@
 login: 403
-dl 6422 (token): 401 Token not provided
+dl 6422 (token): EXC TimeoutError
 dl 6420 (token): 401 Token not provided
 dl 6419 (token): 401 Token not provided
 guest-signup: 403
