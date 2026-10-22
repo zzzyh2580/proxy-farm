@@ -1,8 +1,8 @@
 login: 403
 === sp_list ===
 sp /api/sp_list: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
-sp /api/sp_list?page=1: EXC TimeoutError
-sp /api/sp_list?page=1&sort=like_numbe: EXC TimeoutError
+sp /api/sp_list?page=1: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
+sp /api/sp_list?page=1&sort=like_numbe: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
 sp /api/sp_list?page=1&type=1: 405 <!DOCTYPE html> <html>     <head>         <meta charset="UTF-8" />         <meta name="robots" content="noindex,nofollow" />         <style>                body { background-color: #fff; color: #222; 
 sp /api/sp_list/1: 404 <!DOCTYPE html> <html lang="en">     <head>         <meta charset="utf-8">         <meta name="viewport" content="width=device-width, initial-scale=1">          <title>Not Found</title>          <!-- 
 === 搜索 ===
